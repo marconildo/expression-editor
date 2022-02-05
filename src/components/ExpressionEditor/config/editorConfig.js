@@ -1,58 +1,148 @@
 import { functions, dataTypeStrings } from "./listFunctions";
-
+import loader from "@monaco-editor/loader";
 
 const nameEditor = 'expression-buider';
 
-export const options = {
+const options = {
     //lineNumbers: false,
     // scrollBeyondLastLine: false,
     readOnly: false,
     fontSize: 12,
 }
+export const initEditor = (divEditor) => {
+    loader.init().then((monaco) => {
+        const wrapper = document.getElementById(divEditor);
+        wrapper.style.height = "40vh";
 
-export const initEditor = (editor, monaco) => {
-    if (!monaco.languages.getLanguages().some(({ id }) => id === nameEditor)) {
-        monaco.languages.register({ id: nameEditor });
-        monaco.languages.setMonarchTokensProvider(nameEditor, languageDef());
-        providerCompletionDef(monaco);
-        providerHoverDef(monaco);
-        providerSignatureHelp(monaco);
-    }
+        const properties = {
+            language: nameEditor,
+            theme: "expression-buider-theme",
+            "semanticHighlighting.enabled": true
+        };
+        if (!monaco.languages.getLanguages().some(({ id }) => id === nameEditor)) {
+            monaco.languages.register({ id: nameEditor });
+            providerMonarchTokens(monaco);
+            providerCompletionDef(monaco);
+            providerHoverDef(monaco);
+            providerSignatureHelp(monaco);
+            providerCodeActions(monaco);
+            providerDefineTheme(monaco);
+            providerDocumentSemanticTokens(monaco);
 
-    editor.focus();
+            monaco.editor.create(wrapper, properties);
+        }
+    });
 }
 
-const themeDef = {
-    base: 'vs',
-    inherit: false,
-    rules: [
+const providerDefineTheme = (monaco) => {
+    monaco.editor.defineTheme("expression-buider-theme", {
+        base: 'vs',
+        inherit: false,
+        semanticHighlighting: true,
+        rules: [
+            { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
+            { token: 'keyword', foreground: '0000ff' },
+            { token: 'CTY_REGISTRATION_ENTERPRISE_SCORE', foreground: '1db010' },
+        ]
+    });
+}
+const providerDocumentSemanticTokens = (monaco) => {
+    monaco.languages.registerDocumentSemanticTokensProvider(nameEditor, {
+        getLegend: () => ({
+            tokenTypes: functions.map(i => i.name),
+            tokenModifiers: ["CTY_REGISTRATION_ENTERPRISE_SCORE"]
+        }),
+        provideDocumentSemanticTokens: (model, lastResultId, token) => {
+            const lines = model.getLinesContent();
+            console.log("asda", lines);
 
-    ]
+            const data = [];
+            let prevLine = 0;
+            let prevChar = 0;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+
+                console.log("asda", lines);
+            }
+
+            return {
+                data: new Uint32Array(data),
+                resultId: null
+            };
+        },
+        releaseDocumentSemanticTokens: (resultId) => { }
+    });
 }
 
-const languageDef = () => {
-    //     operators: [
-    //         '>', '<', '!', '==', '<=', '>=', '!=', '&&', '||', '+', '-', '*', '/', '^'
-    //     ],
-
-    const names = functions.map(i => i.name);
-    return {
+const providerMonarchTokens = (monaco) => {
+    monaco.languages.setMonarchTokensProvider(nameEditor, {
         defaultToken: "",
-        keywords: names,
+        keywords: functions.map(i => i.name),
+        escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+        symbols: /[=><!~?:&|+\-*\/\^%]+/,
+        operators: [
+            '>', '<', '!', '==', '<=', '>=', '!=', '&&', '||', '+', '-', '*', '/', '^'
+        ],
+        tokenModifiers: ["CTY_REGISTRATION_ENTERPRISE_SCORE"],
         tokenizer: {
             root: [
                 [/[a-z_$][\w$]*/, {
                     cases: {
                         '@keywords': 'keyword'
                     }
-                }]
-            ]
+                }],
+                // whitespace
+                { include: '@whitespace' },
+
+                // delimiter: after number because of .\d floats
+                [/[;,.]/, 'delimiter'],
+
+                // numbers
+                [/\d*\.\d+([eE][\-+]?\d+)?/, 'number.float'],
+                [/0[xX][0-9a-fA-F]+/, 'number.hex'],
+                [/\d+/, 'number'],
+
+                // delimiters and operators
+                [/[{}()\[\]]/, '@brackets'],
+                [/[<>](?!@symbols)/, '@brackets'],
+                [/@symbols/, {
+                    cases: {
+                        '@operators': 'operator',
+                        '@default': ''
+                    }
+                }],
+            ],
+            comment: [
+                [/[^\/*]+/, 'comment'],
+                [/\/\*/, 'comment', '@push'],
+                ["\\*/", 'comment', '@pop'],
+                [/[\/*]/, 'comment']
+            ],
+            whitespace: [
+                [/[ \t\r\n]+/, 'white'],
+                [/\/\*/, 'comment', '@comment'],
+                [/\/\/.*$/, 'comment'],
+            ],
         }
-    };
+    });
+}
+
+const providerCodeActions = (monaco) => {
+    monaco.languages.registerCodeActionProvider(nameEditor, {
+        provideCodeActions: (model, range, context, token) => {
+            let actions = [];
+            console.log("actions", actions);
+            return {
+                actions: actions,
+                dispose: () => { }
+            }
+        }
+    });
 }
 
 const providerHoverDef = (monaco) => {
-    monaco.languages.registerHoverProvider('expression-buider', {
+    monaco.languages.registerHoverProvider(nameEditor, {
         provideHover: (model, position) => {
             var hoverWord = model.getWordAtPosition(position);
             if (!hoverWord || !hoverWord.word)
@@ -105,6 +195,25 @@ const providerCompletionDef = (monaco) => {
     });
 };
 
+/* \w+\(((?:\([^()]*\)|.)*?)\)(?=\.|\Z|$) */
+
+// const providerValidation = (monaco) => {
+//     console.log("teste f");
+//     monaco.editor.onDidCreateModel((model) => {
+//         const validate = () => {
+//             console.log("teste");
+//         }
+
+//         var handle = null;
+//         model.onDidChangeContent(() => {
+//             clearTimeout(handle);
+//             handle = setTimeout(() => validate(), 500);
+//         });
+//         validate();
+//         console.log("teste s");
+//     });
+// }
+
 const providerSignatureHelp = (monaco) => {
     monaco.languages.registerSignatureHelpProvider(nameEditor, {
         signatureHelpTriggerCharacters: ['(', ','],
@@ -122,7 +231,7 @@ const providerSignatureHelp = (monaco) => {
             let currentSignatures = [];
 
             if (textUntilPosition.indexOf("(") != -1) {
-                var split = removeItemAll(textUntilPosition.split("("), "");
+                var split = textUntilPosition.match(/([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g);
                 if (split.length > 0) {
                     var item = getLastKeywordValid(split);
                     if (item != null) {
@@ -131,7 +240,7 @@ const providerSignatureHelp = (monaco) => {
                         currentSignatures = [
                             {
                                 label: `${item.returnType} ${item.name}(${signatureParams.join(", ")})`,
-                                parameters: signatureParams.map((p,t) => {
+                                parameters: signatureParams.map((p, t) => {
                                     var detail = item.parametersDescription[t];
                                     return {
                                         label: p,
@@ -175,9 +284,9 @@ const getLastKeywordValid = (split) => {
         }
         else {
             var split2 = keyword.split(",");
-            var item = getLastKeywordValid(split2);
-            if (item != null) {
-                validItem = item;
+            var item2 = getLastKeywordValid(split2);
+            if (item2 != null) {
+                validItem = item2;
                 break;
             }
         }
@@ -230,7 +339,7 @@ const getArguments = (item) => {
         return `(${decorateArgumentText(dataTypeStrings[item.inputTypes[0]], item, 1)})`;
 
     let t = "(";
-    const n = new Map, i = [];
+    const n = new Map(), i = [];
     item.inputTypes.forEach((t, o) => {
         n.has(t) ? n.set(t, n.get(t) + 1) : n.set(t, 1);
         const r = dataTypeStrings[t],
@@ -246,16 +355,4 @@ const getArguments = (item) => {
     });
 
     return t
-}
-
-const removeItemAll = (arr, value) => {
-    var i = 0;
-    while (i < arr.length) {
-        if (arr[i] === value) {
-            arr.splice(i, 1);
-        } else {
-            ++i;
-        }
-    }
-    return arr;
 }

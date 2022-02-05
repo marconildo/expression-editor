@@ -1,19 +1,13 @@
-import React, { Fragment } from 'react';
-import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
-import { options, initEditor } from './config/editorConfig';
+import React, { Fragment, useEffect } from 'react';
+import { initEditor } from "./config/editorConfig";
 
 const ExpressionEditor = () => {
 
-    const editorDidMount = (editor, monaco) => initEditor(editor, monaco);
-    
+    useEffect(() => {
+        initEditor("expression-editor");
+    }, [])
     return <Fragment>
-        <Editor
-            options={options}
-            language='expression-buider'
-            theme='expression-buider-theme'
-            onMount={editorDidMount}
-            height="40vh"
-            suggestOnTriggerCharacters={true} />
+        <div id="expression-editor" />
     </Fragment>
 }
 
