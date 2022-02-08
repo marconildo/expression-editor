@@ -1,14 +1,14 @@
 import { functions, dataTypeStrings } from "./listFunctions";
+import { expressionIsBalanced } from './expression';
 import loader from "@monaco-editor/loader";
 
 const nameEditor = 'expression-buider';
+const themeNameEditor = "expression-buider-theme";
+const externalParams = [
+    "CTY_REGISTRATION_ENTERPRISE_SCORE",
+    "PTSTATUSCHANGEDATE"
+]
 
-const options = {
-    //lineNumbers: false,
-    // scrollBeyondLastLine: false,
-    readOnly: false,
-    fontSize: 12,
-}
 export const initEditor = (divEditor) => {
     loader.init().then((monaco) => {
         const wrapper = document.getElementById(divEditor);
@@ -16,7 +16,10 @@ export const initEditor = (divEditor) => {
 
         const properties = {
             language: nameEditor,
-            theme: "expression-buider-theme",
+            lineNumbers: false,
+            readOnly: false,
+            fontSize: 14,
+            theme: themeNameEditor,
             "semanticHighlighting.enabled": true
         };
         if (!monaco.languages.getLanguages().some(({ id }) => id === nameEditor)) {
@@ -34,36 +37,63 @@ export const initEditor = (divEditor) => {
     });
 }
 
-const providerDefineTheme = (monaco) => {
-    monaco.editor.defineTheme("expression-buider-theme", {
-        base: 'vs',
-        inherit: false,
-        semanticHighlighting: true,
-        rules: [
-            { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
-            { token: 'keyword', foreground: '0000ff' },
-            { token: 'CTY_REGISTRATION_ENTERPRISE_SCORE', foreground: '1db010' },
-        ]
-    });
-}
 const providerDocumentSemanticTokens = (monaco) => {
     monaco.languages.registerDocumentSemanticTokensProvider(nameEditor, {
         getLegend: () => ({
             tokenTypes: functions.map(i => i.name),
-            tokenModifiers: ["CTY_REGISTRATION_ENTERPRISE_SCORE"]
+            tokenModifiers: externalParams
         }),
         provideDocumentSemanticTokens: (model, lastResultId, token) => {
             const lines = model.getLinesContent();
-            console.log("asda", lines);
+
+            console.log(expressionIsBalanced(lines));
 
             const data = [];
             let prevLine = 0;
             let prevChar = 0;
+            const modelMarkers = [];
 
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
+                var split = line.match(/([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g);
+                if (split != null) {
+                    for (let x = 0; x < split.length; x++) {
+                        var item = findFunction(split[x]);
+                        if (item != null && item.requiredParameters > 0) {
+                            let indexWord = line.indexOf(item.name);
+                            console.log(indexWord);
 
-                console.log("asda", lines);
+                            let args = /\(\s*([^)]+?)\s*\)/.exec(line);
+                            let isValid = true;
+                            if (args) {
+                                if (args[1]) {
+                                    console.log("args 1: ", args[1])
+                                    args = args[1].split(/\s*,\s*/);
+                                }
+                                const filtered = args.filter((v) => v != '');
+                                if (filtered.length < item.requiredParameters)
+                                    isValid = false;
+                            }
+                            else
+                                isValid = false;
+
+                            if (!isValid) {
+                                monaco.editor.setModelMarkers(model, nameEditor, [
+                                    {
+                                        startLineNumber: i,
+                                        endLineNumber: i,
+                                        startColumn: indexWord,
+                                        endColumn: (indexWord + 1) + item.name.length,
+                                        message: `'${item.name}' expects minimum '${item.requiredParameters}' number of parameters`,
+                                        severity: monaco.MarkerSeverity.Error
+                                    }
+                                ]);
+                            }
+                            
+                            monaco.editor.setModelMarkers(model, nameEditor, modelMarkers);
+                        }
+                    }
+                }
             }
 
             return {
@@ -75,25 +105,41 @@ const providerDocumentSemanticTokens = (monaco) => {
     });
 }
 
+const providerDefineTheme = (monaco) => {
+    monaco.editor.defineTheme(themeNameEditor, {
+        base: 'vs',
+        inherit: false,
+        semanticHighlighting: true,
+        rules: [
+            { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
+            { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
+            { token: 'keyword', foreground: '0000ff' },
+            { token: 'externalParameters', foreground: '1db010' }
+        ]
+    });
+}
+
 const providerMonarchTokens = (monaco) => {
     monaco.languages.setMonarchTokensProvider(nameEditor, {
         defaultToken: "",
         keywords: functions.map(i => i.name),
+        externalParameters: externalParams,
         escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
         symbols: /[=><!~?:&|+\-*\/\^%]+/,
         operators: [
             '>', '<', '!', '==', '<=', '>=', '!=', '&&', '||', '+', '-', '*', '/', '^'
         ],
-        tokenModifiers: ["CTY_REGISTRATION_ENTERPRISE_SCORE"],
         tokenizer: {
             root: [
                 [/[a-z_$][\w$]*/, {
                     cases: {
-                        '@keywords': 'keyword'
+                        '@keywords': 'keyword',
                     }
                 }],
                 // whitespace
                 { include: '@whitespace' },
+
+                { include: "@externalParameters" },
 
                 // delimiter: after number because of .\d floats
                 [/[;,.]/, 'delimiter'],
@@ -113,6 +159,7 @@ const providerMonarchTokens = (monaco) => {
                     }
                 }],
             ],
+            externalParameters: [[externalParams.join('|'), "externalParameters"]],
             comment: [
                 [/[^\/*]+/, 'comment'],
                 [/\/\*/, 'comment', '@push'],
@@ -147,7 +194,7 @@ const providerHoverDef = (monaco) => {
             var hoverWord = model.getWordAtPosition(position);
             if (!hoverWord || !hoverWord.word)
                 return;
-            var item = functions.find(p => p.name == hoverWord.word);
+            var item = findFunction(p => p.name == hoverWord.word);
             if (item == null || item == undefined)
                 return;
 
@@ -194,8 +241,6 @@ const providerCompletionDef = (monaco) => {
         }
     });
 };
-
-/* \w+\(((?:\([^()]*\)|.)*?)\)(?=\.|\Z|$) */
 
 // const providerValidation = (monaco) => {
 //     console.log("teste f");
@@ -276,7 +321,7 @@ const getLastKeywordValid = (split) => {
     for (let i = split.length; i > 0; i--) {
         var keyword = split[i - 1];
         if (keyword.indexOf(",") == -1) {
-            var item = functions.find(p => p.name == keyword.trim());
+            var item = findFunction(p => p.name == keyword.trim());
             if (item != null) {
                 validItem = item;
                 break;
@@ -355,4 +400,8 @@ const getArguments = (item) => {
     });
 
     return t
+}
+
+const findFunction = (e) => {
+    return functions.find((t) => t.name === e || t.synonyms.includes(e));
 }
