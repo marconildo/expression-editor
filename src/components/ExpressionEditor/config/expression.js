@@ -31,6 +31,14 @@ export const expressionIsBalanced = (inputStr) => {
     if (inputStr === null)
         return true;
 
+    if(Array.isArray(inputStr)) {
+        let newStr = "";
+        inputStr.forEach(i => {
+            newStr += i
+        });
+        inputStr = newStr;
+    }
+
     var expression = inputStr.split('');
     var stack = [];
 

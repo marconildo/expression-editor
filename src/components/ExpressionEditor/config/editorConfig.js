@@ -1,6 +1,7 @@
 import { functions, dataTypeStrings } from "./listFunctions";
 import { expressionIsBalanced } from './expression';
 import loader from "@monaco-editor/loader";
+import { Messages } from "./messages";
 
 const nameEditor = 'expression-buider';
 const themeNameEditor = "expression-buider-theme";
@@ -30,9 +31,10 @@ export const initEditor = (divEditor) => {
             providerSignatureHelp(monaco);
             providerCodeActions(monaco);
             providerDefineTheme(monaco);
-            providerDocumentSemanticTokens(monaco);
+            providerValidation(monaco);
 
-            monaco.editor.create(wrapper, properties);
+            const editor = monaco.editor.create(wrapper, properties);
+            editor.focus();
         }
     });
 }
@@ -46,51 +48,67 @@ const providerDocumentSemanticTokens = (monaco) => {
         provideDocumentSemanticTokens: (model, lastResultId, token) => {
             const lines = model.getLinesContent();
 
-            console.log(expressionIsBalanced(lines));
+            if (!expressionIsBalanced(lines)) {
+                monaco.editor.setModelMarkers(model, nameEditor, [
+                    {
+                        startLineNumber: 0,
+                        endLineNumber: model.getLineCount(),
+                        startColumn: 0,
+                        endColumn: model.getLineMaxColumn(model.getLineCount()),
+                        message: Messages.ErrorInvalidExpression,
+                        severity: monaco.MarkerSeverity.Error
+                    }
+                ]);
+                return;
+            }
+            monaco.editor.setModelMarkers(model, nameEditor, []);
 
             const data = [];
             let prevLine = 0;
             let prevChar = 0;
             const modelMarkers = [];
 
+            let expression = "";
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
                 var split = line.match(/([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g);
+                console.log(split);
                 if (split != null) {
                     for (let x = 0; x < split.length; x++) {
                         var item = findFunction(split[x]);
                         if (item != null && item.requiredParameters > 0) {
-                            let indexWord = line.indexOf(item.name);
-                            console.log(indexWord);
+                            let indexWord = expression.indexOf(item.name);
 
                             let args = /\(\s*([^)]+?)\s*\)/.exec(line);
-                            let isValid = true;
-                            if (args) {
-                                if (args[1]) {
-                                    console.log("args 1: ", args[1])
-                                    args = args[1].split(/\s*,\s*/);
-                                }
-                                const filtered = args.filter((v) => v != '');
-                                if (filtered.length < item.requiredParameters)
-                                    isValid = false;
-                            }
-                            else
-                                isValid = false;
+                            console.log(args);
 
-                            if (!isValid) {
-                                monaco.editor.setModelMarkers(model, nameEditor, [
-                                    {
-                                        startLineNumber: i,
-                                        endLineNumber: i,
-                                        startColumn: indexWord,
-                                        endColumn: (indexWord + 1) + item.name.length,
-                                        message: `'${item.name}' expects minimum '${item.requiredParameters}' number of parameters`,
-                                        severity: monaco.MarkerSeverity.Error
-                                    }
-                                ]);
-                            }
-                            
-                            monaco.editor.setModelMarkers(model, nameEditor, modelMarkers);
+                            //                 let isValid = true;
+                            //                 if (args) {
+                            //                     if (args[1]) {
+                            //                         console.log("args 1: ", args[1])
+                            //                         args = args[1].split(/\s*,\s*/);
+                            //                     }
+                            //                     const filtered = args.filter((v) => v != '');
+                            //                     if (filtered.length < item.requiredParameters)
+                            //                         isValid = false;
+                            //                 }
+                            //                 else
+                            //                     isValid = false;
+
+                            //                 if (!isValid) {
+                            //                     monaco.editor.setModelMarkers(model, nameEditor, [
+                            //                         {
+                            //                             startLineNumber: i,
+                            //                             endLineNumber: i,
+                            //                             startColumn: indexWord,
+                            //                             endColumn: (indexWord + 1) + item.name.length,
+                            //                             message: `'${item.name}' expects minimum '${item.requiredParameters}' number of parameters`,
+                            //                             severity: monaco.MarkerSeverity.Error
+                            //                         }
+                            //                     ]);
+                            //                 }
+
+                            //                 monaco.editor.setModelMarkers(model, nameEditor, modelMarkers);
                         }
                     }
                 }
@@ -179,7 +197,7 @@ const providerCodeActions = (monaco) => {
     monaco.languages.registerCodeActionProvider(nameEditor, {
         provideCodeActions: (model, range, context, token) => {
             let actions = [];
-            console.log("actions", actions);
+            //console.log("actions", actions);
             return {
                 actions: actions,
                 dispose: () => { }
@@ -194,7 +212,8 @@ const providerHoverDef = (monaco) => {
             var hoverWord = model.getWordAtPosition(position);
             if (!hoverWord || !hoverWord.word)
                 return;
-            var item = findFunction(p => p.name == hoverWord.word);
+            var item = findFunction(hoverWord.word);
+            console.log(item)
             if (item == null || item == undefined)
                 return;
 
@@ -206,10 +225,7 @@ const providerHoverDef = (monaco) => {
                     model.getLineCount(),
                     model.getLineMaxColumn(model.getLineCount())
                 ),
-                contents: [
-                    { value: "**" + hoverWord.word + "(" + params.join(", ") + ") => " + item.returnType + "**" },
-                    { value: getDescription(item) }
-                ]
+                contents: getDescription(hoverWord, params, item)
             }
         }
     });
@@ -231,7 +247,7 @@ const providerCompletionDef = (monaco) => {
                     kind: getKind(item.kind, monaco),
                     insertText: getInsertText(item),
                     detail: getDetail(item),
-                    documentation: getDescription(item),
+                    documentation: getDocumentation(item),
                     insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
                     range: range
                 }
@@ -242,22 +258,21 @@ const providerCompletionDef = (monaco) => {
     });
 };
 
-// const providerValidation = (monaco) => {
-//     console.log("teste f");
-//     monaco.editor.onDidCreateModel((model) => {
-//         const validate = () => {
-//             console.log("teste");
-//         }
+const providerValidation = (monaco) => {
+    monaco.editor.onDidCreateModel((model) => {
+        const validate = () => {
+            console.log("validate");
+        }
 
-//         var handle = null;
-//         model.onDidChangeContent(() => {
-//             clearTimeout(handle);
-//             handle = setTimeout(() => validate(), 500);
-//         });
-//         validate();
-//         console.log("teste s");
-//     });
-// }
+        var handle = null;
+        model.onDidChangeContent((e) => {
+            console.log(e);
+            clearTimeout(handle);
+            handle = setTimeout(() => validate(), 500);
+        });
+        validate();
+    });
+}
 
 const providerSignatureHelp = (monaco) => {
     monaco.languages.registerSignatureHelpProvider(nameEditor, {
@@ -321,7 +336,7 @@ const getLastKeywordValid = (split) => {
     for (let i = split.length; i > 0; i--) {
         var keyword = split[i - 1];
         if (keyword.indexOf(",") == -1) {
-            var item = findFunction(p => p.name == keyword.trim());
+            var item = findFunction(keyword.trim());
             if (item != null) {
                 validItem = item;
                 break;
@@ -364,8 +379,8 @@ const getDetail = (item) => {
     return `(${params.join(", ")}) => ${item.returnType}`
 }
 
-const getDescription = (item) => {
-    let examples = ""
+const getDocumentation = (item) => {
+    let examples = "\n"
     if (item.examples.length > 0) {
         examples += "Examples";
         for (let t = 0; t < item.examples.length; t += 2) {
@@ -373,6 +388,26 @@ const getDescription = (item) => {
         }
     }
     return `${item.description}\n\n\n${examples}`;
+}
+
+const getDescription = (hoverWord, params, item) => {
+    let description = [
+        { value: "**" + hoverWord.word + "(" + params.join(", ") + ") => " + item.returnType + "**" }
+    ];
+
+    if (item.description)
+        description.push({ value: item.description });
+
+    if (item.examples && item.examples.length > 0) {
+        let examples = "**Examples**";
+        for (let t = 0; t < item.examples.length; t += 2) {
+            examples = `${examples}\n${Math.round(t / 2) + 1}. \`${item.examples[t]}${item.examples[t + 1] ? "\` -> " + item.examples[t + 1] : "\`"}`;
+        }
+
+        description.push({ value: examples });
+    }
+
+    return description;
 }
 
 const decorateArgumentText = (e, t, n) => { return t ? `\${${n}:${e}}` : e }
