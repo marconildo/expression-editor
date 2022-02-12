@@ -80,8 +80,8 @@ const ExpressionEditor = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={8} style={{ margin: "10px 0 10px 0px" }}>
-                        <Space>
+                    <Col span={24} style={{ margin: "10px 0 10px 0px" }}>
+                        <Space wrap>
                             <Button className="btn-operations">+</Button>
                             <Button className="btn-operations">-</Button>
                             <Button className="btn-operations">*</Button>
