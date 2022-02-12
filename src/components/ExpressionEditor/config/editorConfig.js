@@ -379,7 +379,7 @@ const getDetail = (item) => {
     return `(${params.join(", ")}) => ${item.returnType}`
 }
 
-const getDocumentation = (item) => {
+export const getDocumentation = (item) => {
     let examples = "\n"
     if (item.examples.length > 0) {
         examples += "Examples";

@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { initEditor } from "./config/editorConfig";
+import { initEditor, getDocumentation } from "./config/editorConfig";
 import _ from "lodash";
 
 import { SearchOutlined } from '@ant-design/icons';
-import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List } from 'antd';
+import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List, Popover } from 'antd';
 import { functions } from "./config/listFunctions";
 
 const { Content, Footer } = Layout;
@@ -129,9 +129,10 @@ const ExpressionEditor = () => {
                                         onChange={onSeachInputChange}
                                         addonAfter={<SearchOutlined />}
                                         placeholder="filter by keyword" />
+
+                                    <br />
                                 </Col>
                             </Row>
-                            <div className='func-type svg-any' />
                             <Row>
                                 <Col span={24} style={{ paddingTop: 15 }}>
                                     <div style={{ height: "190px", overflowY: "scroll" }}>
@@ -139,11 +140,18 @@ const ExpressionEditor = () => {
                                             dataSource={data}
                                             size="small"
                                             renderItem={item => (
-                                                <List.Item
-                                                    style={{ cursor: "pointer" }}
-                                                    onClick={() => console.log(item.name)}>
-                                                    <label style={{ cursor: "pointer" }}>{item.name}</label>
-                                                </List.Item>
+                                                // <Popover placement="rightBottom" content={getDocumentation(item)} title={item.name} trigger="hover">
+                                                    <List.Item
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={() => console.log(item.name)}>
+
+                                                        <span className='func-display'>
+                                                            <div className='func-type svg-any' />
+                                                            {item.name}
+                                                        </span>
+
+                                                    </List.Item>
+                                                // </Popover>
                                             )}>
                                         </List>
                                     </div>
