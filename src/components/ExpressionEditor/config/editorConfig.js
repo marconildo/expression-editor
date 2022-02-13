@@ -363,7 +363,7 @@ const getActiveParameter = (textUntilPosition, keyword) => {
 }
 
 const getKind = (kind, monaco) => {
-    if (kind === "Function")
+    if (kind === "function")
         return monaco.languages.CompletionItemKind.Function;
 
     return monaco.languages.CompletionItemKind.Text;
@@ -375,7 +375,7 @@ const getInsertText = (value) => {
 }
 
 const getDetail = (item) => {
-    const params = item.parametersDescription.length ? item.parametersDescription.map((e, t) => `${e}: ${item.inputTypes[t]}`) : item.inputTypes;
+    const params = item.parametersToAutoComplete.length ? item.parametersToAutoComplete.map((e, t) => `${e}: ${item.inputTypes[t]}`) : item.inputTypes;
     return `(${params.join(", ")}) => ${item.returnType}`
 }
 

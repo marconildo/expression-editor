@@ -1,10 +1,12 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { initEditor, getDocumentation } from "./config/editorConfig";
+import React, { Fragment, useEffect, useState } from 'react';
+import { initEditor } from "./config/editorConfig";
 import _ from "lodash";
 
 import { SearchOutlined } from '@ant-design/icons';
-import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List, Empty } from 'antd';
+import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List } from 'antd';
 import { functions } from "./config/listFunctions";
+import ExpressionValue from './expressionValue'
+import ExpressionDescription from './expressionDescription'
 
 const { Content, Footer } = Layout;
 
@@ -12,6 +14,7 @@ const ExpressionEditor = () => {
     const [seletedFunctionType, setSeletedFunctionType] = useState(null);
     const [searchName, setSearchName] = useState(null);
     const [data, setData] = useState([]);
+    const [expression, setExpression] = useState(null);
     const [treeData] = useState([
         {
             title: 'All',
@@ -49,65 +52,12 @@ const ExpressionEditor = () => {
             setSeletedFunctionType(info.node);
     };
 
-    const getItemName = (item) => {
-        let itemName = item.name;
-
-        if (item.kind == "Function") {
-            itemName += "(";
-
-            var params = item.parametersDescription.map(e => {
-                return e;
-            });
-
-            itemName += params.join(', ')
-
-            itemName += ")";
-        }
-
-        return itemName;
+    const onItemEnter = (item) => {
+        setExpression(item);
     }
 
-    const getIconType = (type) => {
-        let iconType = "svg-any";
-
-        switch (type) {
-            case "integer":
-            case "decimal(10,0)":
-            case "long":
-            case "double":
-            case "number":
-                iconType = "svg-int";
-                break;
-            case "boolean":
-                iconType = "svg-bool";
-                break;
-            case "string":
-                iconType = "svg-string";
-                break;
-            case "binary":
-                iconType = "svg-binary";
-                break;
-            case "array":
-                iconType = "svg-array";
-                break;
-            case "map":
-                iconType = "svg-map";
-                break;
-            case "datetime":
-                iconType = "svg-date";
-                break;
-            case "timestamp":
-                iconType = "svg-timestamp";
-                break;
-            case "complex":
-                iconType = "svg-struct";
-                break;
-            case "byte":
-                iconType = "svg-byte";
-                break;
-        }
-
-        return iconType;
+    const onItemOut = () => {
+        setExpression(null);
     }
 
     const loadData = () => {
@@ -190,7 +140,6 @@ const ExpressionEditor = () => {
                                         onChange={onSeachInputChange}
                                         addonAfter={<SearchOutlined />}
                                         placeholder="filter by keyword" />
-
                                     <br />
                                 </Col>
                             </Row>
@@ -199,17 +148,14 @@ const ExpressionEditor = () => {
                                     <div style={{ height: "190px", overflowY: "scroll" }}>
                                         <List
                                             dataSource={data}
+                                            onMouseOut={() => onItemOut()}
                                             size="small"
                                             renderItem={item => (
                                                 <List.Item
+                                                    onMouseOver={() => onItemEnter(item)}
                                                     style={{ cursor: "pointer" }}
                                                     onClick={() => console.log(item.name)}>
-
-                                                    <span className='func-display'>
-                                                        <div className={'func-type ' + getIconType(item.returnType)} />
-                                                        {getItemName(item)}
-                                                    </span>
-
+                                                    <ExpressionValue item={item} />
                                                 </List.Item>
                                             )}>
                                         </List>
@@ -224,11 +170,7 @@ const ExpressionEditor = () => {
                                 <h3 style={{ color: "#22075e", marginBottom: 0 }}>Description</h3>
                             </div>
                             <Divider style={{ padding: 10, margin: 0 }}></Divider>
-                            <div className='empty-description'>
-                                <Empty
-                                    image={<i style={{ color: "lightgray" }} className="fa-thin fa-function" />}
-                                    description="No expression elements selected" />
-                            </div>
+                            <ExpressionDescription item={expression} />
                         </div>
                     </Col>
                 </Row>
