@@ -49,6 +49,24 @@ const ExpressionEditor = () => {
             setSeletedFunctionType(info.node);
     };
 
+    const getItemName = (item) => {
+        let itemName = item.name;
+
+        if (item.kind == "Function") {
+            itemName += "(";
+
+            var params = item.parametersDescription.map(e => {
+                return e;
+            });
+
+            itemName += params.join(', ')
+
+            itemName += ")";
+        }
+
+        return itemName;
+    }
+
     const getIconType = (type) => {
         let iconType = "svg-any";
 
@@ -189,7 +207,7 @@ const ExpressionEditor = () => {
 
                                                     <span className='func-display'>
                                                         <div className={'func-type ' + getIconType(item.returnType)} />
-                                                        {item.name}
+                                                        {getItemName(item)}
                                                     </span>
 
                                                 </List.Item>
@@ -209,7 +227,7 @@ const ExpressionEditor = () => {
                             <div className='empty-description'>
                                 <Empty
                                     image={<i style={{ color: "lightgray" }} className="fa-thin fa-function" />}
-                                    description="No function selected" />
+                                    description="No expression elements selected" />
                             </div>
                         </div>
                     </Col>
