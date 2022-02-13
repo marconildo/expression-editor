@@ -3,7 +3,7 @@ import { initEditor, getDocumentation } from "./config/editorConfig";
 import _ from "lodash";
 
 import { SearchOutlined } from '@ant-design/icons';
-import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List, Popover } from 'antd';
+import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List, Empty } from 'antd';
 import { functions } from "./config/listFunctions";
 
 const { Content, Footer } = Layout;
@@ -49,9 +49,52 @@ const ExpressionEditor = () => {
             setSeletedFunctionType(info.node);
     };
 
+    const getIconType = (type) => {
+        let iconType = "svg-any";
+
+        switch (type) {
+            case "integer":
+            case "decimal(10,0)":
+            case "long":
+            case "double":
+            case "number":
+                iconType = "svg-int";
+                break;
+            case "boolean":
+                iconType = "svg-bool";
+                break;
+            case "string":
+                iconType = "svg-string";
+                break;
+            case "binary":
+                iconType = "svg-binary";
+                break;
+            case "array":
+                iconType = "svg-array";
+                break;
+            case "map":
+                iconType = "svg-map";
+                break;
+            case "datetime":
+                iconType = "svg-date";
+                break;
+            case "timestamp":
+                iconType = "svg-timestamp";
+                break;
+            case "complex":
+                iconType = "svg-struct";
+                break;
+            case "byte":
+                iconType = "svg-byte";
+                break;
+        }
+
+        return iconType;
+    }
+
     const loadData = () => {
         setData(_.orderBy(functions.filter(i => (seletedFunctionType == null || i.functionType == seletedFunctionType.title)
-            && (searchName == null || i.name.indexOf(searchName) != -1)
+            && (searchName == null || i.name.toLowerCase().indexOf(searchName.toLowerCase()) != -1)
         ), 'name'));
     }
 
@@ -116,14 +159,14 @@ const ExpressionEditor = () => {
                                 treeData={treeData} />
                         </div>
                     </Col>
-                    <Col span={18} style={{ paddingLeft: "15px" }}>
+                    <Col span={9} style={{ paddingLeft: "15px" }}>
                         <div style={{ height: "100%" }} className="whiteBox shadow">
                             <div>
                                 <h3 style={{ color: "#22075e", marginBottom: 0 }}>Expression values</h3>
                             </div>
                             <Divider style={{ padding: 10, margin: 0 }}></Divider>
                             <Row>
-                                <Col span={6}>
+                                <Col span={12}>
                                     <Input
                                         allowClear={true}
                                         onChange={onSeachInputChange}
@@ -140,23 +183,34 @@ const ExpressionEditor = () => {
                                             dataSource={data}
                                             size="small"
                                             renderItem={item => (
-                                                // <Popover placement="rightBottom" content={getDocumentation(item)} title={item.name} trigger="hover">
-                                                    <List.Item
-                                                        style={{ cursor: "pointer" }}
-                                                        onClick={() => console.log(item.name)}>
+                                                <List.Item
+                                                    style={{ cursor: "pointer" }}
+                                                    onClick={() => console.log(item.name)}>
 
-                                                        <span className='func-display'>
-                                                            <div className='func-type svg-any' />
-                                                            {item.name}
-                                                        </span>
+                                                    <span className='func-display'>
+                                                        <div className={'func-type ' + getIconType(item.returnType)} />
+                                                        {item.name}
+                                                    </span>
 
-                                                    </List.Item>
-                                                // </Popover>
+                                                </List.Item>
                                             )}>
                                         </List>
                                     </div>
                                 </Col>
                             </Row>
+                        </div>
+                    </Col>
+                    <Col span={9} style={{ paddingLeft: "15px" }}>
+                        <div style={{ height: "100%" }} className="whiteBox shadow">
+                            <div>
+                                <h3 style={{ color: "#22075e", marginBottom: 0 }}>Description</h3>
+                            </div>
+                            <Divider style={{ padding: 10, margin: 0 }}></Divider>
+                            <div className='empty-description'>
+                                <Empty
+                                    image={<i style={{ color: "lightgray" }} className="fa-thin fa-function" />}
+                                    description="No function selected" />
+                            </div>
                         </div>
                     </Col>
                 </Row>
