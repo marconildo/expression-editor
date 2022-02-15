@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import { Empty, Divider, Typography } from 'antd';
+import { Empty, Divider, Typography, Tag } from 'antd';
 import { getDetail } from './config/editorConfig';
 
 const { Text } = Typography;
@@ -42,9 +42,21 @@ const ExpressionDescription = ({ item }) => {
         {item != null &&
             <div style={{ height: "240px", overflowY: "scroll" }}>
                 <div>
-                    <Text code>{`${item.name}${getDetail(item)}`}</Text>
+                    {item.kind == "functions" &&
+                        <Tag
+                            style={{ "textTransform": "capitalize" }}
+                            icon={<i className="fa-thin fa-function" />}
+                            color="default"> {item.kind}</Tag>
+                    }
+                    {item.kind == "Parameters" &&
+                        <Tag
+                            style={{ "textTransform": "capitalize" }}
+                            icon={<i className="fa-light fa-database" />}
+                            color="default"> {item.kind}</Tag>
+                    }
+                    <Text keyboard>{`${item.name}${getDetail(item)}`}</Text>
                 </div>
-                <Divider style={{ paddingTop: 0, margin: 0 }} />
+                <Divider style={{ padding: 0, marginTop: 3, marginBottom: 3 }} />
                 {item.description &&
                     <div>
                         <Text>{item.description}</Text>

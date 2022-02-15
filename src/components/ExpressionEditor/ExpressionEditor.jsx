@@ -61,12 +61,7 @@ const ExpressionEditor = ({ externalParams }) => {
         insertTextValue(value);
     }
 
-    const onItemOut = () => {
-        setExpression(null);
-    }
-
     const onSelectedItem = (item) => {
-        setExpression(null);
         insertItemValue(item);
     }
 
@@ -166,7 +161,6 @@ const ExpressionEditor = ({ externalParams }) => {
                                     <div style={{ height: "190px", overflowY: "scroll" }}>
                                         <List
                                             dataSource={data}
-                                            //onMouseOut={() => onItemOut()}
                                             size="small"
                                             renderItem={item => (
                                                 <List.Item
