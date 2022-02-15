@@ -65,17 +65,19 @@ const ExpressionEditor = ({ externalParams }) => {
         insertItemValue(item);
     }
 
-    const loadData = () => {
+    const loadData = (firstTime = false) => {
         let source = externalParams.map(item => ({
             "name": item.name,
-            "description" : item.description,
+            "description": item.description,
             "returnType": item.dataType || "any",
             "kind": "Parameters"
         }));
 
-        source = _.union(source, functions);
+         if (!firstTime || source.length == 0)
+             source = _.union(source, functions);
 
-        setData(_.orderBy(source.filter(i => (seletedFunctionType == null || (i.functionType == seletedFunctionType.title || (i.kind != null && i.kind.toString().toLowerCase() == seletedFunctionType.title.toString().toLowerCase())))
+        setData(_.orderBy(source.filter(i =>
+            (seletedFunctionType == null || (i.functionType == seletedFunctionType.title || (i.kind != null && i.kind.toString().toLowerCase() == seletedFunctionType.title.toString().toLowerCase())))
             && (searchName == null || i.name.toLowerCase().indexOf(searchName.toLowerCase()) != -1)
         ), 'name'));
     }
@@ -90,7 +92,7 @@ const ExpressionEditor = ({ externalParams }) => {
 
 
     useEffect(() => {
-        loadData();
+        loadData(true);
         initEditor("expression-editor", externalParams);
     }, [])
 
