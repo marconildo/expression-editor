@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { initEditor } from "./config/editorConfig";
+import { initEditor, insertItemValue } from "./config/editorConfig";
 import _ from "lodash";
 
 import { SearchOutlined } from '@ant-design/icons';
@@ -46,6 +46,7 @@ const ExpressionEditor = () => {
     }
 
     const onSelectTree = (selectedKeys, info) => {
+        setExpression(null);
         if (info.node.selected || info.node.title == "All")
             setSeletedFunctionType(null);
         else
@@ -58,6 +59,11 @@ const ExpressionEditor = () => {
 
     const onItemOut = () => {
         setExpression(null);
+    }
+
+    const onSelectedItem = (item) => {
+        setExpression(null);
+        insertItemValue(item);
     }
 
     const loadData = () => {
@@ -127,14 +133,14 @@ const ExpressionEditor = () => {
                                 treeData={treeData} />
                         </div>
                     </Col>
-                    <Col span={9} style={{ paddingLeft: "15px" }}>
+                    <Col span={8} style={{ paddingLeft: "15px" }}>
                         <div style={{ height: "100%" }} className="whiteBox shadow">
                             <div>
                                 <h3 style={{ color: "#22075e", marginBottom: 0 }}>Expression values</h3>
                             </div>
                             <Divider style={{ padding: 10, margin: 0 }}></Divider>
                             <Row>
-                                <Col span={12}>
+                                <Col span={20}>
                                     <Input
                                         allowClear={true}
                                         onChange={onSeachInputChange}
@@ -148,13 +154,13 @@ const ExpressionEditor = () => {
                                     <div style={{ height: "190px", overflowY: "scroll" }}>
                                         <List
                                             dataSource={data}
-                                            onMouseOut={() => onItemOut()}
+                                            //onMouseOut={() => onItemOut()}
                                             size="small"
                                             renderItem={item => (
                                                 <List.Item
                                                     onMouseOver={() => onItemEnter(item)}
                                                     style={{ cursor: "pointer" }}
-                                                    onClick={() => console.log(item.name)}>
+                                                    onClick={() => onSelectedItem(item)}>
                                                     <ExpressionValue item={item} />
                                                 </List.Item>
                                             )}>
@@ -164,7 +170,7 @@ const ExpressionEditor = () => {
                             </Row>
                         </div>
                     </Col>
-                    <Col span={9} style={{ paddingLeft: "15px" }}>
+                    <Col span={10} style={{ paddingLeft: "15px" }}>
                         <div style={{ height: "100%" }} className="whiteBox shadow">
                             <div>
                                 <h3 style={{ color: "#22075e", marginBottom: 0 }}>Description</h3>

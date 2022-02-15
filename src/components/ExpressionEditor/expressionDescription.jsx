@@ -1,10 +1,31 @@
 import React, { Fragment } from "react";
 
 import { Empty, Divider, Typography } from 'antd';
+import { getDetail } from './config/editorConfig';
 
 const { Text } = Typography;
 
 const ExpressionDescription = ({ item }) => {
+
+    const getExamples = (item) => {
+        const examples = []
+        for (let t = 0; t < item.examples.length; t += 2) {
+            examples.push(<Text key={`example_0_${t}`}>{Math.round(t / 2) + 1}.</Text>);
+            examples.push(<Text key={`exemple_1_${t}`} code>{item.examples[t]}{item.examples[t + 1] ? " => " + item.examples[t + 1] : ""}</Text>);
+            examples.push(<br key={`example_2_${t}`} />);
+        }
+        return examples;
+    }
+
+    const getInputs = (item) => {
+        const inputs = []
+        for (let t = 0; t < item.inputTypes.length; t += 1) {
+            inputs.push(<Text key={`input_0_${t}`}>{t + 1}.</Text>);
+            inputs.push(<Text key={`input_1_${t}`} code>{item.parametersToAutoComplete[t] != null ? item.parametersToAutoComplete[t] : item.inputTypes[t]}: {item.inputTypes[t]}</Text>);
+            inputs.push(<br key={`input_2_${t}`} />);
+        }
+        return inputs;
+    }
 
     return <Fragment>
         {item == null &&
@@ -15,32 +36,27 @@ const ExpressionDescription = ({ item }) => {
             </div>
         }
         {item != null &&
-            <div>
+            <div style={{ height: "240px", overflowY: "scroll" }}>
                 <div>
-                    <strong>{item.name}</strong> {item.kind} : datatype <Text code>{item.returnType}</Text>
+                    <Text code>{`${item.name}${getDetail(item)}`}</Text>
                 </div>
                 <Divider style={{ paddingTop: 0, margin: 0 }} />
-                <div>{item.description}</div>
+                <div>
+                    <Text>{item.description}</Text>
+                </div>
                 {item.inputTypes && item.inputTypes.length > 0 &&
-                    <Fragment>
-                        <div style={{ marginTop: 5 }}><strong>Inputs</strong></div>
+                    <div style={{ marginTop: 5 }}>
+                        <Text strong style={{ marginTop: 5 }}>Inputs</Text>
                         <Divider style={{ paddingTop: 0, margin: 0 }} />
-                        <div></div>
-                    </Fragment>
+                        {getInputs(item)}
+                    </div>
                 }
                 {item.examples && item.examples.length > 0 &&
-                    <Fragment>
-                        <div style={{ marginTop: 5 }}><strong>Examples</strong></div>
+                    <div style={{ marginTop: 5 }}>
+                        <Text strong>Examples</Text>
                         <Divider style={{ paddingTop: 0, margin: 0 }} />
-                        {
-                            item.examples.map(e => {
-                                return <Fragment>
-                                    <Text code>{e}</Text>
-                                    <br />
-                                </Fragment>
-                            })
-                        }
-                    </Fragment>
+                        {getExamples(item)}
+                    </div>
                 }
             </div>
         }

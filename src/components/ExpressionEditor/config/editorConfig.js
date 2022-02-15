@@ -14,6 +14,7 @@ export const initEditor = (divEditor) => {
     loader.init().then((monaco) => {
         const wrapper = document.getElementById(divEditor);
         wrapper.style.height = "40vh";
+        window.currentMonaco = monaco;
 
         const properties = {
             language: nameEditor,
@@ -33,8 +34,8 @@ export const initEditor = (divEditor) => {
             providerDefineTheme(monaco);
             providerValidation(monaco);
 
-            const editor = monaco.editor.create(wrapper, properties);
-            editor.focus();
+            window.currentEditor = monaco.editor.create(wrapper, properties);
+            window.currentEditor.focus();
         }
     });
 }
@@ -212,12 +213,11 @@ const providerHoverDef = (monaco) => {
             var hoverWord = model.getWordAtPosition(position);
             if (!hoverWord || !hoverWord.word)
                 return;
-            var item = findFunction(hoverWord.word);
-            console.log(item)
+            var item = findFunction(hoverWord.word);            
             if (item == null || item == undefined)
                 return;
 
-            const params = item.parametersDescription.length ? item.parametersDescription.map((e, t) => `${e}: ${item.inputTypes[t]}`) : item.inputTypes;
+            const params = item.parametersToAutoComplete.length ? item.parametersToAutoComplete.map((e, t) => `${e}: ${item.inputTypes[t]}`) : item.inputTypes;
             return {
                 range: new monaco.Range(
                     1,
@@ -369,12 +369,28 @@ const getKind = (kind, monaco) => {
     return monaco.languages.CompletionItemKind.Text;
 }
 
+export const insertItemValue = (item) => {
+    const selection = window.currentEditor.getSelection();
+    const range = new window.currentMonaco.Range(
+        selection.selectionStartLineNumber,
+        selection.selectionStartColumn,
+        selection.endLineNumber,
+        selection.positionColumn
+    );
+
+    window.currentEditor.trigger('keyboard', 'type', { text: `${item.name}`, range: range });
+    window.currentEditor.trigger('keyboard', 'editor.action.triggerSuggest', {});
+    setTimeout(() => {
+        window.currentEditor.trigger('editor', 'acceptSelectedSuggestion', {});
+    }, 100);
+}
+
 const getInsertText = (value) => {
     const params = value.parametersToAutoComplete.map((item, i) => decorateArgumentText(item, !0, i + 1));
     return params.length ? `${value.name}(${params.join(", ")})` : `${value.name}${getArguments(value)}`;
 }
 
-const getDetail = (item) => {
+export const getDetail = (item) => {
     const params = item.parametersToAutoComplete.length ? item.parametersToAutoComplete.map((e, t) => `${e}: ${item.inputTypes[t]}`) : item.inputTypes;
     return `(${params.join(", ")}) => ${item.returnType}`
 }
