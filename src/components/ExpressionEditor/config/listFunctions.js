@@ -29,7 +29,7 @@ Logical operators
 export const functions = [
     {
         "name": "toInteger",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to an integer value. An optional Java decimal format can be used for the conversion. Truncates any long, float, double",
         "examples": [
             "toInteger(123)",
@@ -63,7 +63,7 @@ export const functions = [
     },
     {
         "name": "toDecimal",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to a decimal value. If precision and scale are not specified, it is defaulted to (10,2).An optional Java decimal format can be used for the conversion. An optional locale format in the form of BCP47 language like en-US, de, zh-CN",
         "examples": [
             "toDecimal(123.45)",
@@ -105,7 +105,7 @@ export const functions = [
     },
     {
         "name": "equalsIgnoreCase",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison equals operator ignoring case. Same as <=> operator",
         "examples": [
             "'abc'<=>'Abc'",
@@ -132,7 +132,7 @@ export const functions = [
     },
     {
         "name": "dayOfYear",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the day of the year given a date",
         "examples": [
             "dayOfYear(toDate('2016-04-09'))",
@@ -156,7 +156,7 @@ export const functions = [
     },
     {
         "name": "sha1",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the SHA-1 digest of set of column of varying primitive datatypes and returns a 40 character hex string. It can be used to calculate a fingerprint for a row",
         "examples": [
             "sha1(5, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -180,7 +180,7 @@ export const functions = [
     },
     {
         "name": "sha1Binary",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the SHA-1 digest of set of column of varying primitive datatypes and returns a 40 character hex string. It can be used to calculate a fingerprint for a row",
         "examples": [
             "sha1(5, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -204,7 +204,7 @@ export const functions = [
     },
     {
         "name": "maxIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the maximum value of a column",
         "examples": [
             "maxIf(region == 'West', sales)",
@@ -229,7 +229,7 @@ export const functions = [
     },
     {
         "name": "false",
-        "kind": "function",
+        "kind": "functions",
         "description": "Always returns a false value. Use the function syntax(false()) if there is a column named 'false'",
         "examples": [
             "(10 + 20 > 30)",
@@ -255,7 +255,7 @@ export const functions = [
     },
     {
         "name": "initCap",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts the first letter of every word to uppercase. Words are identified as separated by whitespace",
         "examples": [
             "initCap('cool iceCREAM')",
@@ -279,7 +279,7 @@ export const functions = [
     },
     {
         "name": "flatten",
-        "kind": "function",
+        "kind": "functions",
         "description": "Flattens array or arrays into a single array. Arrays of atomic items are return unaltered. An option defaulted to false can be given to flatten recursively more than one level deep",
         "examples": [
             "flatten([['bojjus', 'girl'], ['gunchus', 'boy']])",
@@ -312,7 +312,7 @@ export const functions = [
     },
     {
         "name": "lesserOrEqual",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison lesser than or equal operator. Same as <= operator",
         "examples": [
             "lesserOrEqual(12, 12)",
@@ -339,7 +339,7 @@ export const functions = [
     },
     {
         "name": "lead",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the value of the first parameter evaluated n rows after the current row. The second parameter is the number of rows to look forward and the default value is 1. If there are not as many rows a value of null is returned unless a default value is specified",
         "examples": [
             "lead(amount, 2)",
@@ -371,7 +371,7 @@ export const functions = [
     },
     {
         "name": "coalesce",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the first not null value from a set of inputs. All inputs should be of the same type",
         "examples": [
             "coalesce(10, 20)",
@@ -397,7 +397,7 @@ export const functions = [
     },
     {
         "name": "count",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the aggregate count of values. If the optional column(s) is specified, it ignores NULL values in the count",
         "examples": [
             "count(custId)",
@@ -427,7 +427,7 @@ export const functions = [
     },
     {
         "name": "in",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if an item is in the array",
         "examples": [
             "in([10, 20, 30], 10)",
@@ -456,7 +456,7 @@ export const functions = [
     },
     {
         "name": "currentTimestamp",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the current timestamp when the job starts to run with local time zone",
         "examples": [
             "currentTimestamp() == toTimestamp('2250-12-31 12:12:12')",
@@ -480,7 +480,7 @@ export const functions = [
     },
     {
         "name": "ltrim",
-        "kind": "function",
+        "kind": "functions",
         "description": "Left trims a string of leading characters. If second parameter is unspecified, it trims whitespace. Else it trims any character specified in the second parameter",
         "examples": [
             "ltrim('  dumbo  ')",
@@ -509,7 +509,7 @@ export const functions = [
     },
     {
         "name": "factorial",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculate the factorial of a number",
         "examples": [
             "factorial(5)",
@@ -533,7 +533,7 @@ export const functions = [
     },
     {
         "name": "countIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria gets the aggregate count of values. If the optional column is specified, it ignores NULL values in the count",
         "examples": [
             "countIf(state == 'CA' && commission < 10000, name)",
@@ -558,7 +558,7 @@ export const functions = [
     },
     {
         "name": "rlike",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the string matches the given regex pattern",
         "examples": [
             "rlike('200.50', `(\\d+).(\\d+)`)",
@@ -587,7 +587,7 @@ export const functions = [
     },
     {
         "name": "soundex",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the soundex code for the string",
         "examples": [
             "soundex('genius')",
@@ -611,7 +611,7 @@ export const functions = [
     },
     {
         "name": "concatWS",
-        "kind": "function",
+        "kind": "functions",
         "description": "Concatenates a variable number of strings together with a separator. The first parameter is the separator",
         "examples": [
             "concatWS(' ', 'dataflow', 'is', 'awesome')",
@@ -645,7 +645,7 @@ export const functions = [
     },
     {
         "name": "isIgnore",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is marked to be ignored. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isIgnore()",
@@ -671,7 +671,7 @@ export const functions = [
     },
     {
         "name": "sumDistinct",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the aggregate sum of distinct values of a numeric column",
         "examples": [
             "sumDistinct(col)",
@@ -695,7 +695,7 @@ export const functions = [
     },
     {
         "name": "replace",
-        "kind": "function",
+        "kind": "functions",
         "description": "Replace all occurrences of a substring with another substring in the given string. If the last parameter is omitted, it is default to empty string",
         "examples": [
             "replace('doggie dog', 'dog', 'cat')",
@@ -729,7 +729,7 @@ export const functions = [
     },
     {
         "name": "dayOfWeek",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the day of the week given a date. 1 - Sunday, 2 - Monday ..., 7 - Saturday",
         "examples": [
             "dayOfWeek(toDate('2018-06-08'))",
@@ -753,7 +753,7 @@ export const functions = [
     },
     {
         "name": "crc32",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the CRC32 hash of set of column of varying primitive datatypes given a bit length which can only be of values 0(256), 224, 256, 384, 512. It can be used to calculate a fingerprint for a row",
         "examples": [
             "crc32(256, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -777,7 +777,7 @@ export const functions = [
     },
     {
         "name": "blake2b",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the Blake2 digest of set of column of varying primitive datatypes given a bit length which can only be multiples of 8 between 8 & 512. It can be used to calculate a fingerprint for a row",
         "examples": [
             "blake2b(256, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -802,7 +802,7 @@ export const functions = [
     },
     {
         "name": "blake2bBinary",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the Blake2 digest of set of column of varying primitive datatypes given a bit length which can only be multiples of 8 between 8 & 512. It can be used to calculate a fingerprint for a row",
         "examples": [
             "blake2b(256, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -827,7 +827,7 @@ export const functions = [
     },
     {
         "name": "isError",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is marked as error. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isError()",
@@ -853,7 +853,7 @@ export const functions = [
     },
     {
         "name": "hasError",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the assert with provided ID is marked as error",
         "examples": [
             "hasError('assert1')",
@@ -879,7 +879,7 @@ export const functions = [
     },
     {
         "name": "assertErrorMessages",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a map of all error messages for the row with assert ID as the key. Example output: ['assert1': 'This row failed on assert1.', 'assert2': 'This row failed on assert2.']. In this example, at(assertErrorMessages(), 'assert1') would return 'This row failed on assert1.'",
         "examples": [
             "assertErrorMessages()",
@@ -903,7 +903,7 @@ export const functions = [
     },
     {
         "name": "rtrim",
-        "kind": "function",
+        "kind": "functions",
         "description": "Right trims a string of leading characters. If second parameter is unspecified, it trims whitespace. Else it trims any character specified in the second parameter",
         "examples": [
             "rtrim('  dumbo  ')",
@@ -932,7 +932,7 @@ export const functions = [
     },
     {
         "name": "minus",
-        "kind": "function",
+        "kind": "functions",
         "description": "Subtracts numbers. Subtract from a date number of days. Substract duration from a timestamp. Substract two timestamps to get difference in milliseconds. Same as the - operator",
         "examples": [
             "minus(20, 10)",
@@ -967,7 +967,7 @@ export const functions = [
     },
     {
         "name": "sinh",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a hyperbolic sine value",
         "examples": [
             "sinh(0)",
@@ -991,7 +991,7 @@ export const functions = [
     },
     {
         "name": "isDelete",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is marked for delete. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isDelete()",
@@ -1017,7 +1017,7 @@ export const functions = [
     },
     {
         "name": "union",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a union set of distinct items from 2 arrays",
         "examples": [
             "union([10, 20, 30], [20, 40])",
@@ -1046,7 +1046,7 @@ export const functions = [
     },
     {
         "name": "subMonths",
-        "kind": "function",
+        "kind": "functions",
         "description": "Subtract months from a date or timestamp",
         "examples": [
             "subMonths(toDate('2016-09-30'), 1)",
@@ -1073,7 +1073,7 @@ export const functions = [
     },
     {
         "name": "intersect",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns an intersection set of distinct items from 2 arrays",
         "examples": [
             "intersect([10, 20, 30], [20, 40])",
@@ -1102,7 +1102,7 @@ export const functions = [
     },
     {
         "name": "fromUTC",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts to the timestamp from UTC. You can optionally pass the timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. It is defaulted to the current timezone. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "fromUTC(currentTimeStamp()) == toTimestamp('2050-12-12 19:18:12')",
@@ -1129,7 +1129,7 @@ export const functions = [
     },
     {
         "name": "mod",
-        "kind": "function",
+        "kind": "functions",
         "description": "Modulus of pair of numbers. Same as the % operator",
         "examples": [
             "mod(20, 8)",
@@ -1156,7 +1156,7 @@ export const functions = [
     },
     {
         "name": "toTimestamp",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts a string to a timestamp given an optional timestamp format. Refer to Java SimpleDateFormat for all possible formats. If the timestamp is omitted the default pattern.yyyy-[M]M-[d]d hh:mm:ss[.f...] is used. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'.Timestamp supports upto millisecond accuracy with value of 999Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "toTimestamp('2016-12-31 00:12:00')",
@@ -1195,7 +1195,7 @@ export const functions = [
     },
     {
         "name": "levenshtein",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the levenshtein distance between two strings",
         "examples": [
             "levenshtein('boys', 'girls')",
@@ -1222,7 +1222,7 @@ export const functions = [
     },
     {
         "name": "variance",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the variance of a column",
         "examples": [
             "variance(sales)",
@@ -1246,7 +1246,7 @@ export const functions = [
     },
     {
         "name": "map",
-        "kind": "function",
+        "kind": "functions",
         "description": "Maps each element of the array to a new element using the provided expression. Map expects a reference to one element in the expression function as #item",
         "examples": [
             "map([1, 2, 3, 4], #item + 2)",
@@ -1275,7 +1275,7 @@ export const functions = [
     },
     {
         "name": "mapIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Conditionally maps an array to another array of same or smaller length. The values can be of any datatype including structTypes. It takes a mapping function where you can address the item in the array as #item and current index as #index. For deeply nested maps you can refer to the parent maps using the #item_[n](#item_1, #index_1...) notation.",
         "examples": [
             "mapIf([10, 20, 30], #item > 10, #item + 5)",
@@ -1307,7 +1307,7 @@ export const functions = [
     },
     {
         "name": "dropRight",
-        "kind": "function",
+        "kind": "functions",
         "description": "Removes as many characters from the right of the string. If the drop requested exceeds the length of the string, an empty string is returned",
         "examples": [
             "dropRight('bojjus', 2)",
@@ -1336,7 +1336,7 @@ export const functions = [
     },
     {
         "name": "mapIndex",
-        "kind": "function",
+        "kind": "functions",
         "description": "Maps each element of the array to a new element using the provided expression. Map expects a reference to one element in the expression function as #item and a reference to the element index as #index",
         "examples": [
             "mapIndex([1, 2, 3, 4], #item + 2 + #index)",
@@ -1363,7 +1363,7 @@ export const functions = [
     },
     {
         "name": "mapLoop",
-        "kind": "function",
+        "kind": "functions",
         "description": "Loops through from 1 to length to create an array of that length. It takes a mapping function where you can address the index in the array as #index. For deeply nested maps you can refer to the parent maps using the #index_n(#index_1, #index_2...) notation.",
         "examples": [
             "mapLoop(3, #index * 10)",
@@ -1390,7 +1390,7 @@ export const functions = [
     },
     {
         "name": "isNan",
-        "kind": "function",
+        "kind": "functions",
         "description": "Check if this is not a number",
         "examples": [
             "isNan(10.2)",
@@ -1414,7 +1414,7 @@ export const functions = [
     },
     {
         "name": "keys",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the keys for a map",
         "examples": [
             "keys(['bojjus' -> 'gunchus', 'appa' -> 'ammi'])",
@@ -1438,7 +1438,7 @@ export const functions = [
     },
     {
         "name": "values",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the values for a map",
         "examples": [
             "values(['bojjus' -> 'gunchus', 'appa' -> 'ammi'])",
@@ -1462,7 +1462,7 @@ export const functions = [
     },
     {
         "name": "degrees",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts radians to degrees",
         "examples": [
             "degrees(3.141592653589793)",
@@ -1486,7 +1486,7 @@ export const functions = [
     },
     {
         "name": "equals",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison equals operator. Same as == operator",
         "examples": [
             "equals(12, 24)",
@@ -1519,7 +1519,7 @@ export const functions = [
     },
     {
         "name": "nTile",
-        "kind": "function",
+        "kind": "functions",
         "description": "The NTile function divides the rows for each window partition into `n` buckets ranging from 1 to at most `n`. Bucket values will differ by at most 1. If the number of rows in the partition does not divide evenly into the number of buckets, then the remainder values are distributed one per bucket, starting with the first bucket. The NTile function is useful for the calculation of tertiles, quartiles, deciles, and other common summary statistics. The function calculates two variables during initialization: The size of a regular bucket will have one extra row added to it. Both variables are based on the size of the current partition. During the calculation process the function keeps track of the current row number, the current bucket number, and the row number at which the bucket will change (bucketThreshold). When the current row number reaches bucket threshold, the bucket value is increased by one and the threshold is increased by the bucket size (plus one extra if the current bucket is padded).",
         "examples": [
             "nTile()",
@@ -1545,7 +1545,7 @@ export const functions = [
     },
     {
         "name": "covarianceSampleIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the sample covariance of two columns",
         "examples": [
             "covarianceSampleIf(region == 'West', sales, profit)",
@@ -1571,7 +1571,7 @@ export const functions = [
     },
     {
         "name": "asin",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates an inverse sine value",
         "examples": [
             "asin(0)",
@@ -1595,7 +1595,7 @@ export const functions = [
     },
     {
         "name": "isNull",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the value is NULL",
         "examples": [
             "isNull(NULL())",
@@ -1621,7 +1621,7 @@ export const functions = [
     },
     {
         "name": "isBoolean",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a boolean value according to the rules of toBoolean",
         "examples": [
             "isBoolean('true')",
@@ -1649,7 +1649,7 @@ export const functions = [
     },
     {
         "name": "isShort",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a short value given an optional format according to the rules of toShort",
         "examples": [
             "isShort('123')",
@@ -1680,7 +1680,7 @@ export const functions = [
     },
     {
         "name": "isInteger",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a integer value given an optional format according to the rules of toInteger",
         "examples": [
             "isInteger('123')",
@@ -1711,7 +1711,7 @@ export const functions = [
     },
     {
         "name": "isLong",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a long value given an optional format according to the rules of toLong",
         "examples": [
             "isLong('123')",
@@ -1742,7 +1742,7 @@ export const functions = [
     },
     {
         "name": "isFloat",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a float value given an optional format according to the rules of toFloat",
         "examples": [
             "isFloat('123')",
@@ -1773,7 +1773,7 @@ export const functions = [
     },
     {
         "name": "isDouble",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a double value given an optional format according to the rules of toDouble",
         "examples": [
             "isDouble('123')",
@@ -1804,7 +1804,7 @@ export const functions = [
     },
     {
         "name": "isByte",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a byte value given an optional format according to the rules of toByte",
         "examples": [
             "isByte('123')",
@@ -1833,7 +1833,7 @@ export const functions = [
     },
     {
         "name": "isDecimal",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks of the string value is a decimal value given an optional format according to the rules of toDecimal",
         "examples": [
             "isDecimal('123.45')",
@@ -1862,7 +1862,7 @@ export const functions = [
     },
     {
         "name": "isDate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the input date string is a date using an optional input date format. Refer Java's SimpleDateFormat for available formats. If the input date format is omitted, default format is yyyy-[M]M-[d]d. Accepted formats are : [ yyyy, yyyy-[M]M, yyyy-[M]M-[d]d, yyyy-[M]M-[d]dT* ]",
         "examples": [
             "isDate('2012-8-18')",
@@ -1891,7 +1891,7 @@ export const functions = [
     },
     {
         "name": "isTimestamp",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the input date string is a timestamp using an optional input timestamp format. Refer Java's SimpleDateFormat for available formats. If the timestamp is omitted the default pattern yyyy-[M]M-[d]d hh:mm:ss[.f...] is used. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. Timestamp supports upto millisecond accuracy with value of 999 Refer Java's SimpleDateFormat for available formats. https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html",
         "examples": [
             "isTimestamp('2016-12-31 00:12:00')",
@@ -1922,7 +1922,7 @@ export const functions = [
     },
     {
         "name": "expr",
-        "kind": "function",
+        "kind": "functions",
         "description": "Results in a expression from a string. This is the same as writing this expression in a non-literal form. This can be used to pass parameters as string representations",
         "examples": [
             "expr('price * discount')",
@@ -1946,7 +1946,7 @@ export const functions = [
     },
     {
         "name": "radians",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts degrees to radians",
         "examples": [
             "radians(180)",
@@ -1970,7 +1970,7 @@ export const functions = [
     },
     {
         "name": "bitwiseAnd",
-        "kind": "function",
+        "kind": "functions",
         "description": "Bitwise And operator across integral types. Same as & operator",
         "examples": [
             "bitwiseAnd(0xf4, 0xef)",
@@ -1997,7 +1997,7 @@ export const functions = [
     },
     {
         "name": "associate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Creates an map of key/values. All the keys & values should be of the same type. If no items are specified, it is defaulted to map of string to string type.Same as a [ -> ] creation operator. Key and values should alternate with each other",
         "examples": [
             "associate('bojjus', 'gunchus', 'appa', 'ammi')",
@@ -2023,7 +2023,7 @@ export const functions = [
     },
     {
         "name": "bitwiseOr",
-        "kind": "function",
+        "kind": "functions",
         "description": "Bitwise Or operator across integral types. Same as | operator",
         "examples": [
             "bitwiseOr(0xf4, 0xef)",
@@ -2050,7 +2050,7 @@ export const functions = [
     },
     {
         "name": "bitwiseXor",
-        "kind": "function",
+        "kind": "functions",
         "description": "Bitwise Xor operator across integral types. Same as ^ operator",
         "examples": [
             "bitwiseXor(0xf4, 0xef)",
@@ -2081,7 +2081,7 @@ export const functions = [
     },
     {
         "name": "toBitSet",
-        "kind": "function",
+        "kind": "functions",
         "description": "Makes a bitset with the bits in the input parameter set",
         "examples": [
             "toBitSet([10, 32, 98])",
@@ -2105,7 +2105,7 @@ export const functions = [
     },
     {
         "name": "isBitSet",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if a bit position is set in this bitset",
         "examples": [
             "isBitSet(toBitSet([10, 32, 98]), 10)",
@@ -2132,7 +2132,7 @@ export const functions = [
     },
     {
         "name": "setBitSet",
-        "kind": "function",
+        "kind": "functions",
         "description": "Sets bit positions in this bitset",
         "examples": [
             "setBitSet(toBitSet([10, 32]), [98])",
@@ -2159,7 +2159,7 @@ export const functions = [
     },
     {
         "name": "between",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the first value is in between two other values inclusively. Numeric, string and datetime values can be compared",
         "examples": [
             "between(10, 5, 24)",
@@ -2191,7 +2191,7 @@ export const functions = [
     },
     {
         "name": "isDistinct",
-        "kind": "function",
+        "kind": "functions",
         "description": "Finds if a column or set of columns is distinct. It does not count null as a distinct value",
         "examples": [
             "isDistinct(custId, custName)",
@@ -2218,7 +2218,7 @@ export const functions = [
     },
     {
         "name": "sumDistinctIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on criteria gets the aggregate sum of a numeric column. The condition can be based on any column",
         "examples": [
             "sumDistinctIf(state == 'CA' && commission < 10000, sales)",
@@ -2245,7 +2245,7 @@ export const functions = [
     },
     {
         "name": "weeks",
-        "kind": "function",
+        "kind": "functions",
         "description": "Duration in milliseconds for number of weeks",
         "examples": [
             "weeks(2)",
@@ -2269,7 +2269,7 @@ export const functions = [
     },
     {
         "name": "startsWith",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the string starts with the supplied string",
         "examples": [
             "startsWith('dumbo', 'du')",
@@ -2296,7 +2296,7 @@ export const functions = [
     },
     {
         "name": "normalize",
-        "kind": "function",
+        "kind": "functions",
         "description": "Normalize the string value to separate accented unicode characters",
         "examples": [
             "regexReplace(normalize('bo\\xb2s'), `\\\\p{M}`, '')",
@@ -2320,7 +2320,7 @@ export const functions = [
     },
     {
         "name": "escape",
-        "kind": "function",
+        "kind": "functions",
         "description": "Escapes a string according to a format. Literal values for acceptable format are 'json', 'xml', 'ecmascript', 'html', 'java'",
         "examples": [
             "escape('{\\\"value\\\": 10}', 'json')",
@@ -2347,7 +2347,7 @@ export const functions = [
     },
     {
         "name": "unescape",
-        "kind": "function",
+        "kind": "functions",
         "description": "Unescapes a string according to a format. Literal values for acceptable format are 'json', 'xml', 'ecmascript', 'html', 'java'",
         "examples": [
             "unescape('{\\\\\"value\\\\\": 10}', 'json')",
@@ -2374,7 +2374,7 @@ export const functions = [
     },
     {
         "name": "iif",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a condition applies one value or the other. If other is unspecified it is considered NULL. Both the values must be compatible(numeric, string...)",
         "examples": [
             "iif(10 + 20 == 30, 'dumbo', 'gumbo')",
@@ -2408,7 +2408,7 @@ export const functions = [
     },
     {
         "name": "covarianceSample",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the sample covariance of two columns",
         "examples": [
             "covarianceSample(sales, profit)",
@@ -2433,7 +2433,7 @@ export const functions = [
     },
     {
         "name": "minute",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the minute value of a timestamp. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. The local timezone is used as the default. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "minute(toTimestamp('2009-07-30 12:58:59'))",
@@ -2460,7 +2460,7 @@ export const functions = [
     },
     {
         "name": "minIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the minimum value of a column",
         "examples": [
             "minIf(region == 'West', sales)",
@@ -2485,7 +2485,7 @@ export const functions = [
     },
     {
         "name": "uuid",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the generated UUID",
         "examples": [
             "uuid()",
@@ -2509,7 +2509,7 @@ export const functions = [
     },
     {
         "name": "toBinary",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric/date/timestamp/string to binary representation",
         "examples": [
             "toBinary(3)",
@@ -2533,7 +2533,7 @@ export const functions = [
     },
     {
         "name": "hex",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a hex string representation of a binary value.",
         "examples": [
             "hex(toBinary([toByte(0x1f), toByte(0xad), toByte(0xbe)]))",
@@ -2557,7 +2557,7 @@ export const functions = [
     },
     {
         "name": "unhex",
-        "kind": "function",
+        "kind": "functions",
         "description": "Unhexes a binary value from its string representation. This can be used in conjuction with sha2, md5 to convert from string to binary representation.",
         "examples": [
             "unhex('1fadbe')",
@@ -2583,7 +2583,7 @@ export const functions = [
     },
     {
         "name": "columns",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets all output columns values for a stream. You can pass an optional stream name as argument.",
         "examples": [
             "columns()",
@@ -2609,7 +2609,7 @@ export const functions = [
     },
     {
         "name": "columnNames",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets all output columns names for a stream. You can pass an optional stream name as argument.",
         "examples": [
             "columnNames()",
@@ -2635,7 +2635,7 @@ export const functions = [
     },
     {
         "name": "hasColumn",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks for a column value by name in the stream. You can pass an optional stream name as the second argument. Column names known at design time should be addressed just by their name. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "hasColumn('parent')",
@@ -2662,7 +2662,7 @@ export const functions = [
     },
     {
         "name": "dayOfMonth",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the day of the month given a date",
         "examples": [
             "dayOfMonth(toDate('2018-06-08'))",
@@ -2686,7 +2686,7 @@ export const functions = [
     },
     {
         "name": "kurtosis",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the kurtosis of a column",
         "examples": [
             "kurtosis(sales)",
@@ -2710,7 +2710,7 @@ export const functions = [
     },
     {
         "name": "monthsBetween",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the number of months between two dates. You can round off the calculation.You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. The local timezone is used as the default. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "monthsBetween(toTimestamp('1997-02-28 10:30:00'), toDate('1996-10-30'))",
@@ -2743,7 +2743,7 @@ export const functions = [
     },
     {
         "name": "lag",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the value of the first parameter evaluated n rows before the current row. The second parameter is the number of rows to look back and the default value is 1. If there are not as many rows a value of null is returned unless a default value is specified",
         "examples": [
             "lag(amount, 2)",
@@ -2775,7 +2775,7 @@ export const functions = [
     },
     {
         "name": "sha2",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the SHA-2 digest of set of column of varying primitive datatypes given a bit length which can only be of values 0(256), 224, 256, 384, 512. It can be used to calculate a fingerprint for a row",
         "examples": [
             "sha2(256, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -2800,7 +2800,7 @@ export const functions = [
     },
     {
         "name": "sha2Binary",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the SHA-2 digest of set of column of varying primitive datatypes given a bit length which can only be of values 0(256), 224, 256, 384, 512. It can be used to calculate a fingerprint for a row",
         "examples": [
             "sha2(256, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -2825,7 +2825,7 @@ export const functions = [
     },
     {
         "name": "rank",
-        "kind": "function",
+        "kind": "functions",
         "description": "Computes the rank of a value in a group of values. The result is one plus the number of rows preceding or equal to the current row in the ordering of the partition. The values will produce gaps in the sequence. Rank works even when data is not sorted and looks for change in values",
         "examples": [
             "rank()",
@@ -2849,7 +2849,7 @@ export const functions = [
     },
     {
         "name": "seconds",
-        "kind": "function",
+        "kind": "functions",
         "description": "Duration in milliseconds for number of seconds",
         "examples": [
             "seconds(2)",
@@ -2873,7 +2873,7 @@ export const functions = [
     },
     {
         "name": "left",
-        "kind": "function",
+        "kind": "functions",
         "description": "Extracts a substring start at index 1 with number of characters. Same as SUBSTRING(str, 1, n)",
         "examples": [
             "left('bojjus', 2)",
@@ -2902,7 +2902,7 @@ export const functions = [
     },
     {
         "name": "varianceSampleIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the unbiased variance of a column",
         "examples": [
             "varianceSampleIf(region == 'West', sales)",
@@ -2927,7 +2927,7 @@ export const functions = [
     },
     {
         "name": "log10",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates log value based on 10 base",
         "examples": [
             "log10(100)",
@@ -2951,7 +2951,7 @@ export const functions = [
     },
     {
         "name": "avg",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the average of values of a column",
         "examples": [
             "avg(sales)",
@@ -2975,7 +2975,7 @@ export const functions = [
     },
     {
         "name": "rowNumber",
-        "kind": "function",
+        "kind": "functions",
         "description": "Assigns a sequential row numbering for rows in a window starting with 1",
         "examples": [
             "rowNumber()",
@@ -2999,7 +2999,7 @@ export const functions = [
     },
     {
         "name": "concat",
-        "kind": "function",
+        "kind": "functions",
         "description": "Concatenates a variable number of strings together. Same as the + operator with strings",
         "examples": [
             "concat('dataflow', 'is', 'awesome')",
@@ -3030,7 +3030,7 @@ export const functions = [
     },
     {
         "name": "pMod",
-        "kind": "function",
+        "kind": "functions",
         "description": "Positive Modulus of pair of numbers.",
         "examples": [
             "pmod(-20, 8)",
@@ -3055,7 +3055,7 @@ export const functions = [
     },
     {
         "name": "mean",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the mean of values of a column. Same as AVG",
         "examples": [
             "mean(sales)",
@@ -3079,7 +3079,7 @@ export const functions = [
     },
     {
         "name": "isUpsert",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is marked for insert. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isUpsert()",
@@ -3105,7 +3105,7 @@ export const functions = [
     },
     {
         "name": "fromBase64",
-        "kind": "function",
+        "kind": "functions",
         "description": "Encodes the given string in base64. You can optionally pass the encoding type",
         "examples": [
             "fromBase64('Z3VuY2h1cw==')",
@@ -3132,7 +3132,7 @@ export const functions = [
     },
     {
         "name": "min",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the minimum value of a column",
         "examples": [
             "min(sales)",
@@ -3156,7 +3156,7 @@ export const functions = [
     },
     {
         "name": "unfold",
-        "kind": "function",
+        "kind": "functions",
         "description": "Unfolds an array into a set of rows and repeating the values for the remaining columns in every row",
         "examples": [
             "unfold(addresses)",
@@ -3182,7 +3182,7 @@ export const functions = [
     },
     {
         "name": "instr",
-        "kind": "function",
+        "kind": "functions",
         "description": "Finds the position(1 based) of the substring within a string. 0 is returned if not found",
         "examples": [
             "instr('dumbo', 'mbo')",
@@ -3213,7 +3213,7 @@ export const functions = [
     },
     {
         "name": "year",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the year value of a date",
         "examples": [
             "year(toDate('2012-8-8'))",
@@ -3237,7 +3237,7 @@ export const functions = [
     },
     {
         "name": "lower",
-        "kind": "function",
+        "kind": "functions",
         "description": "Lowercases a string",
         "examples": [
             "lower('GunChus')",
@@ -3261,7 +3261,7 @@ export const functions = [
     },
     {
         "name": "currentUTC",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the current timestamp as UTC. If you want your current time to be interpreted in a different timezone than your cluster time zone, you can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. It is defaulted to the current timezone. Refer to Java's SimpleDateFormat for available formats.To convert the UTC time to a different timezone use fromUTC()",
         "examples": [
             "currentUTC() == toTimestamp('2050-12-12 19:18:12')",
@@ -3289,7 +3289,7 @@ export const functions = [
     },
     {
         "name": "divide",
-        "kind": "function",
+        "kind": "functions",
         "description": "Divides pair of numbers. Same as the / operator",
         "examples": [
             "divide(20, 10)",
@@ -3316,7 +3316,7 @@ export const functions = [
     },
     {
         "name": "or",
-        "kind": "function",
+        "kind": "functions",
         "description": "Logical OR operator. Same as ||",
         "examples": [
             "or(true, false)",
@@ -3343,7 +3343,7 @@ export const functions = [
     },
     {
         "name": "stddevPopulation",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the population standard deviation of a column",
         "examples": [
             "stddevPopulation(sales)",
@@ -3367,7 +3367,7 @@ export const functions = [
     },
     {
         "name": "cos",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a cosine value",
         "examples": [
             "cos(10)",
@@ -3391,7 +3391,7 @@ export const functions = [
     },
     {
         "name": "null",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a NULL value. Use the function syntax(null()) if there is a column named 'null'. Any operation that uses will result in a NULL",
         "examples": [
             "isNull('dumbo' + null)",
@@ -3423,7 +3423,7 @@ export const functions = [
     },
     {
         "name": "upper",
-        "kind": "function",
+        "kind": "functions",
         "description": "Uppercases a string",
         "examples": [
             "upper('bojjus')",
@@ -3447,7 +3447,7 @@ export const functions = [
     },
     {
         "name": "last",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the last value of a column group. If the second parameter ignoreNulls is omitted, it is assumed false",
         "examples": [
             "last(sales)",
@@ -3474,7 +3474,7 @@ export const functions = [
     },
     {
         "name": "toFloat",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to a float value. An optional Java decimal format can be used for the conversion. Truncates any double",
         "examples": [
             "toFloat(123.45)",
@@ -3508,7 +3508,7 @@ export const functions = [
     },
     {
         "name": "avgIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria gets the average of values of a column",
         "examples": [
             "avgIf(region == 'West', sales)",
@@ -3533,7 +3533,7 @@ export const functions = [
     },
     {
         "name": "addDays",
-        "kind": "function",
+        "kind": "functions",
         "description": "Add days to a date or timestamp. Same as the + operator for date",
         "examples": [
             "addDays(toDate('2016-08-08'), 1)",
@@ -3560,7 +3560,7 @@ export const functions = [
     },
     {
         "name": "notNull",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the value is not NULL",
         "examples": [
             "notNull(NULL())",
@@ -3586,7 +3586,7 @@ export const functions = [
     },
     {
         "name": "cbrt",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculate the cube root of a number",
         "examples": [
             "cbrt(8)",
@@ -3610,7 +3610,7 @@ export const functions = [
     },
     {
         "name": "hour",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the hour value of a timestamp. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. The local timezone is used as the default. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "hour(toTimestamp('2009-07-30 12:58:59'))",
@@ -3637,7 +3637,7 @@ export const functions = [
     },
     {
         "name": "atan",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a inverse tangent value",
         "examples": [
             "atan(0)",
@@ -3661,7 +3661,7 @@ export const functions = [
     },
     {
         "name": "toLong",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to a long value. An optional Java decimal format can be used for the conversion. Truncates any float, double",
         "examples": [
             "toLong(123)",
@@ -3695,7 +3695,7 @@ export const functions = [
     },
     {
         "name": "partitionId",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the current partition id the input row is in",
         "examples": [
             "partitionId()",
@@ -3719,7 +3719,7 @@ export const functions = [
     },
     {
         "name": "dropLeft",
-        "kind": "function",
+        "kind": "functions",
         "description": "Removes as many characters from the left of the string. If the drop requested exceeds the length of the string, an empty string is returned",
         "examples": [
             "dropLeft('bojjus', 2)",
@@ -3748,7 +3748,7 @@ export const functions = [
     },
     {
         "name": "ceil",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the smallest integer not smaller than the number",
         "examples": [
             "ceil(-0.1)",
@@ -3772,7 +3772,7 @@ export const functions = [
     },
     {
         "name": "least",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison lesser than or equal operator. Same as <= operator",
         "examples": [
             "least(10, 30, 15, 20)",
@@ -3798,7 +3798,7 @@ export const functions = [
     },
     {
         "name": "subDays",
-        "kind": "function",
+        "kind": "functions",
         "description": "Subtract months from a date or timestamp. Same as the - operator for date",
         "examples": [
             "subDays(toDate('2016-08-08'), 1)",
@@ -3825,7 +3825,7 @@ export const functions = [
     },
     {
         "name": "stddevIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the standard deviation of a column",
         "examples": [
             "stddevIf(region == 'West', sales)",
@@ -3850,7 +3850,7 @@ export const functions = [
     },
     {
         "name": "isAssignable",
-        "kind": "function",
+        "kind": "functions",
         "description": "Finds if this datatype expressed as input/output script can be assigned to a column from a stream. Return null if the column is not found. If the optional third parameter 'exact match' is specified as true, returns true only if the datatype exactly matches the column type. Else returns true even if the datatype is a subset of the column type.",
         "examples": [
             "isAssignable(byPosition(1), 'decimal')",
@@ -3886,7 +3886,7 @@ export const functions = [
     },
     {
         "name": "reverse",
-        "kind": "function",
+        "kind": "functions",
         "description": "Reverses a string",
         "examples": [
             "reverse('gunchus')",
@@ -3910,7 +3910,7 @@ export const functions = [
     },
     {
         "name": "meanIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria gets the mean of values of a column. Same as avgIf",
         "examples": [
             "meanIf(region == 'West', sales)",
@@ -3935,7 +3935,7 @@ export const functions = [
     },
     {
         "name": "filter",
-        "kind": "function",
+        "kind": "functions",
         "description": "Filters elements out of the array that do not meet the provided predicate. Filter expects a reference to one element in the predicate function as #item",
         "examples": [
             "filter([1, 2, 3, 4], #item > 2)",
@@ -3964,7 +3964,7 @@ export const functions = [
     },
     {
         "name": "minutes",
-        "kind": "function",
+        "kind": "functions",
         "description": "Duration in milliseconds for number of minutes",
         "examples": [
             "minutes(2)",
@@ -3988,7 +3988,7 @@ export const functions = [
     },
     {
         "name": "regexSplit",
-        "kind": "function",
+        "kind": "functions",
         "description": "Splits a string based on a delimiter based on regex and returns an array of strings",
         "examples": [
             "regexSplit('bojjusAgunchusBdumbo', `[CAB]`)",
@@ -4021,7 +4021,7 @@ export const functions = [
     },
     {
         "name": "covariancePopulation",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the population covariance between two columns",
         "examples": [
             "covariancePopulation(sales, profit)",
@@ -4046,7 +4046,7 @@ export const functions = [
     },
     {
         "name": "nextSequence",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the next unique sequence. The number is consecutive only within a partition and is prefixed by the partitionId",
         "examples": [
             "nextSequence() == 12313112",
@@ -4070,7 +4070,7 @@ export const functions = [
     },
     {
         "name": "mapAssociation",
-        "kind": "function",
+        "kind": "functions",
         "description": "Transforms a map by associating the keys to new values. It takes a mapping function where you can address the item as #key and current value as #value.",
         "examples": [
             "mapAssociation(['bojjus' -> 'gunchus', 'appa' -> 'ammi'], @(key = #key, value = #value))",
@@ -4095,7 +4095,7 @@ export const functions = [
     },
     {
         "name": "endsWith",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the string ends with the supplied string",
         "examples": [
             "endsWith('dumbo', 'mbo')",
@@ -4122,7 +4122,7 @@ export const functions = [
     },
     {
         "name": "millisecond",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the millisecond value of a date. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. The local timezone is used as the default. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "millisecond(toTimestamp('2009-07-30 12:58:59.871', 'yyyy-MM-dd HH:mm:ss.SSS'))",
@@ -4147,7 +4147,7 @@ export const functions = [
     },
     {
         "name": "hours",
-        "kind": "function",
+        "kind": "functions",
         "description": "Duration in milliseconds for number of hours",
         "examples": [
             "hours(2)",
@@ -4171,7 +4171,7 @@ export const functions = [
     },
     {
         "name": "variancePopulationIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the population variance of a column",
         "examples": [
             "variancePopulationIf(region == 'West', sales)",
@@ -4196,7 +4196,7 @@ export const functions = [
     },
     {
         "name": "second",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the second value of a date. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. The local timezone is used as the default. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "second(toTimestamp('2009-07-30 12:58:59'))",
@@ -4221,7 +4221,7 @@ export const functions = [
     },
     {
         "name": "at",
-        "kind": "function",
+        "kind": "functions",
         "description": "Finds the element at an array index. The index is 1-based. Out of bounds index results in a null value.Finds a value in a map given a key. If the key is not found it returns null",
         "examples": [
             "at(['bojjus', 'gunchus'], 1)",
@@ -4254,7 +4254,7 @@ export const functions = [
     },
     {
         "name": "toBoolean",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts a value of ('t', 'true', 'y', 'yes', '1') to true and ('f', 'false', 'n', 'no', '0') to false and NULL for any other value",
         "examples": [
             "toBoolean('true')",
@@ -4282,7 +4282,7 @@ export const functions = [
     },
     {
         "name": "isMatch",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is matched at lookup. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isMatch()",
@@ -4308,7 +4308,7 @@ export const functions = [
     },
     {
         "name": "md5",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the MD5 digest of set of column of varying primitive datatypes and returns a 32 character hex string. It can be used to calculate a fingerprint for a row",
         "examples": [
             "md5(5, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -4332,7 +4332,7 @@ export const functions = [
     },
     {
         "name": "md5Binary",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the MD5 digest of set of column of varying primitive datatypes and returns a 32 character hex string. It can be used to calculate a fingerprint for a row",
         "examples": [
             "md5(5, 'gunchus', 8.2, 'bojjus', true, toDate('2010-4-4'))",
@@ -4356,7 +4356,7 @@ export const functions = [
     },
     {
         "name": "max",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the maximum value of a column",
         "examples": [
             "max(sales)",
@@ -4380,7 +4380,7 @@ export const functions = [
     },
     {
         "name": "variancePopulation",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the population variance of a column",
         "examples": [
             "variancePopulation(sales)",
@@ -4404,7 +4404,7 @@ export const functions = [
     },
     {
         "name": "atan2",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the angle in radians between the positive x-axis of a plane and the point given by the coordinates",
         "examples": [
             "atan2(0, 0)",
@@ -4429,7 +4429,7 @@ export const functions = [
     },
     {
         "name": "sqrt",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates the square root of a number",
         "examples": [
             "sqrt(9)",
@@ -4453,7 +4453,7 @@ export const functions = [
     },
     {
         "name": "weekOfYear",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the week of the year given a date",
         "examples": [
             "weekOfYear(toDate('2008-02-20'))",
@@ -4477,7 +4477,7 @@ export const functions = [
     },
     {
         "name": "iifNull",
-        "kind": "function",
+        "kind": "functions",
         "description": "Given two or more inputs, returns the first not null item. This function is equivalent to coalesce.",
         "examples": [
             "iifNull(10, 20)",
@@ -4509,7 +4509,7 @@ export const functions = [
     },
     {
         "name": "greatest",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the greatest value among the list of values as input skipping null values. Returns null if all inputs are null",
         "examples": [
             "greatest(10, 30, 15, 20)",
@@ -4539,7 +4539,7 @@ export const functions = [
     },
     {
         "name": "stddev",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the standard deviation of a column",
         "examples": [
             "stdDev(sales)",
@@ -4563,7 +4563,7 @@ export const functions = [
     },
     {
         "name": "floor",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the largest integer not greater than the number",
         "examples": [
             "floor(-0.1)",
@@ -4587,7 +4587,7 @@ export const functions = [
     },
     {
         "name": "negate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Negates a number. Turns positive numbers to negative and vice versa",
         "examples": [
             "negate(13)",
@@ -4611,7 +4611,7 @@ export const functions = [
     },
     {
         "name": "approxDistinctCount",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the approximate aggregate count of distinct values for a column. The optional second parameter is to control the estimation error",
         "examples": [
             "approxDistinctCount(custId)",
@@ -4638,7 +4638,7 @@ export const functions = [
     },
     {
         "name": "xor",
-        "kind": "function",
+        "kind": "functions",
         "description": "Logical XOR operator. Same as ^ operator",
         "examples": [
             "xor(true, false)",
@@ -4667,7 +4667,7 @@ export const functions = [
     },
     {
         "name": "split",
-        "kind": "function",
+        "kind": "functions",
         "description": "Splits a string based on a delimiter and returns an array of strings",
         "examples": [
             "split('bojjus,guchus,dumbo', ',')",
@@ -4706,7 +4706,7 @@ export const functions = [
     },
     {
         "name": "countDistinct",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the aggregate count of distinct values of a set of columns",
         "examples": [
             "countDistinct(custId, custName)",
@@ -4731,7 +4731,7 @@ export const functions = [
     },
     {
         "name": "distinct",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a distinct set of items from an array",
         "examples": [
             "distinct([10, 20, 30, 10])",
@@ -4757,7 +4757,7 @@ export const functions = [
     },
     {
         "name": "countAll",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the aggregate count of values including nulls",
         "examples": [
             "countAll(custId, custName)",
@@ -4782,7 +4782,7 @@ export const functions = [
     },
     {
         "name": "countAllDistinct",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the aggregate count of distinct values of a set of columns including nulls",
         "examples": [
             "countAllDistinct(custId, custName)",
@@ -4807,7 +4807,7 @@ export const functions = [
     },
     {
         "name": "toUTC",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts the timestamp to UTC. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. It is defaulted to the current timezone. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "toUTC(currentTimeStamp()) == toTimestamp('2050-12-12 19:18:12')",
@@ -4834,7 +4834,7 @@ export const functions = [
     },
     {
         "name": "slice",
-        "kind": "function",
+        "kind": "functions",
         "description": "Extracts a subset of an array from a position. Position is 1 based. If the length is omitted, it is defaulted to end of the string",
         "examples": [
             "slice([10, 20, 30, 40], 1, 2)",
@@ -4874,7 +4874,7 @@ export const functions = [
     },
     {
         "name": "addMonths",
-        "kind": "function",
+        "kind": "functions",
         "description": "Add months to a date or timestamp. You can optionally pass a timezone",
         "examples": [
             "addMonths(toDate('2016-08-31'), 1)",
@@ -4904,7 +4904,7 @@ export const functions = [
     },
     {
         "name": "array",
-        "kind": "function",
+        "kind": "functions",
         "description": "Creates an array of items. All the items should be of the same type. If no items are specified, it is defaulted to array of string type.",
         "examples": [
             "array('bojjus', 'gunchus')",
@@ -4930,7 +4930,7 @@ export const functions = [
     },
     {
         "name": "toBase64",
-        "kind": "function",
+        "kind": "functions",
         "description": "Encodes the given string in base64. You can optionally pass the encoding type",
         "examples": [
             "toBase64('bojjus')",
@@ -4957,7 +4957,7 @@ export const functions = [
     },
     {
         "name": "not",
-        "kind": "function",
+        "kind": "functions",
         "description": "Logical negation operator",
         "examples": [
             "not(true)",
@@ -4983,7 +4983,7 @@ export const functions = [
     },
     {
         "name": "reduce",
-        "kind": "function",
+        "kind": "functions",
         "description": "Accumulates elements in an array. Reduce expects a reference to an accumulator and one element in the first expression function as #acc and #item and it expects the resulting value as #result to be used in the second expression function",
         "examples": [
             "toString(reduce(['1', '2', '3', '4'], '0', #acc + #item, #result))",
@@ -5016,7 +5016,7 @@ export const functions = [
     },
     {
         "name": "translate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Replace one set of characters by another set of characters in the string. Characters have  1 to 1 replacement",
         "examples": [
             "translate('(bojjus)', '()', '[]')",
@@ -5048,7 +5048,7 @@ export const functions = [
     },
     {
         "name": "multiply",
-        "kind": "function",
+        "kind": "functions",
         "description": "Multiplies pair of numbers. Same as the * operator",
         "examples": [
             "multiply(20, 10)",
@@ -5075,7 +5075,7 @@ export const functions = [
     },
     {
         "name": "isInsert",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is marked for insert. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isInsert()",
@@ -5101,7 +5101,7 @@ export const functions = [
     },
     {
         "name": "denseRank",
-        "kind": "function",
+        "kind": "functions",
         "description": "Computes the rank of a value in a group of values. The result is one plus the number of rows preceding or equal to the current row in the ordering of the partition. The values will not produce gaps in the sequence. Dense Rank works even when data is not sorted and looks for change in values",
         "examples": [
             "denseRank()",
@@ -5125,7 +5125,7 @@ export const functions = [
     },
     {
         "name": "stddevPopulationIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the population standard deviation of a column",
         "examples": [
             "stddevPopulationIf(region == 'West', sales)",
@@ -5150,7 +5150,7 @@ export const functions = [
     },
     {
         "name": "greaterOrEqual",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison greater than or equal operator. Same as >= operator",
         "examples": [
             "greaterOrEqual(12, 12)",
@@ -5177,7 +5177,7 @@ export const functions = [
     },
     {
         "name": "byOrigin",
-        "kind": "function",
+        "kind": "functions",
         "description": "Selects a column value by name in the origin stream. The second argument is the origin stream name. If there are multiple matches, the first match is returned. If no match it returns a NULL value. The returned value has to be type converted by one of the type conversion functions(TO_DATE, TO_STRING ...). Column names known at design time should be addressed just by their name. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "toString(byOrigin('ancestor', 'ancestorStream'))",
@@ -5204,7 +5204,7 @@ export const functions = [
     },
     {
         "name": "byOrigins",
-        "kind": "function",
+        "kind": "functions",
         "description": "Selects an array of columns by name in the stream. The second argument is the stream where it originated from. If there are multiple matches, the first match is returned. If no match it returns a NULL value. The returned value has to be type converted by one of the type conversion functions(TO_DATE, TO_STRING ...) Column names known at design time should be addressed just by their name. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "toString(byOrigins(['ancestor1', 'ancestor2'], 'ancestorStream'))",
@@ -5231,7 +5231,7 @@ export const functions = [
     },
     {
         "name": "byItem",
-        "kind": "function",
+        "kind": "functions",
         "description": "Find a sub item within a structure or array of structure. If there are multiple matches, the first match is returned. If no match it returns a NULL value. The returned value has to be type converted by one of the type conversion actions(? date, ? string ...). Column names known at design time should be addressed just by their name. Computed inputs are not supported but you can use parameter substitutions.",
         "examples": [
             "byItem( byName('customer'), 'orderItems') ? (itemName as string, itemQty as integer)",
@@ -5260,7 +5260,7 @@ export const functions = [
     },
     {
         "name": "byName",
-        "kind": "function",
+        "kind": "functions",
         "description": "Selects a column value by name in the stream. You can pass an optional stream name as the second argument. If there are multiple matches, the first match is returned. If no match it returns a NULL value. The returned value has to be type converted by one of the type conversion functions(TO_DATE, TO_STRING ...). Column names known at design time should be addressed just by their name. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "toString(byName('parent'))",
@@ -5297,7 +5297,7 @@ export const functions = [
     },
     {
         "name": "byNames",
-        "kind": "function",
+        "kind": "functions",
         "description": "Selects multiple column values by column names in the stream. You can pass an optional stream name as the second argument. If there are multiple matches, the first match is returned. If no match it returns a NULL value. Column names known at design time should be addressed just by their name. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "md5(byNames(['ID', 'State']))",
@@ -5326,7 +5326,7 @@ export const functions = [
     },
     {
         "name": "kurtosisIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the kurtosis of a column",
         "examples": [
             "kurtosisIf(region == 'West', sales)",
@@ -5351,7 +5351,7 @@ export const functions = [
     },
     {
         "name": "tanh",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a hyperbolic tangent value",
         "examples": [
             "tanh(0)",
@@ -5375,7 +5375,7 @@ export const functions = [
     },
     {
         "name": "first",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the first value of a column group. If the second parameter ignoreNulls is omitted, it is assumed false",
         "examples": [
             "first(sales)",
@@ -5402,7 +5402,7 @@ export const functions = [
     },
     {
         "name": "true",
-        "kind": "function",
+        "kind": "functions",
         "description": "Always returns a true value. Use the function syntax(true()) if there is a column named 'true'",
         "examples": [
             "(10 + 20 == 30)",
@@ -5428,7 +5428,7 @@ export const functions = [
     },
     {
         "name": "lastDayOfMonth",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the last date of the month given a date",
         "examples": [
             "lastDayOfMonth(toDate('2009-01-12'))",
@@ -5452,7 +5452,7 @@ export const functions = [
     },
     {
         "name": "jaroWinkler",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the JaroWrinkler distance between two strings",
         "examples": [
             "jaroWinkler('frog', 'frog')",
@@ -5479,7 +5479,7 @@ export const functions = [
     },
     {
         "name": "toDouble",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to a double value. An optional Java decimal format can be used for the conversion. An optional locale format in the form of BCP47 language like en-US, de, zh-CN",
         "examples": [
             "toDouble(123.45)",
@@ -5515,7 +5515,7 @@ export const functions = [
     },
     {
         "name": "lesser",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison less operator. Same as < operator",
         "examples": [
             "lesser(12, 24)",
@@ -5544,7 +5544,7 @@ export const functions = [
     },
     {
         "name": "lpad",
-        "kind": "function",
+        "kind": "functions",
         "description": "Left pads the string by the supplied padding until it is of a certain length. If the string is equal to or greater than the length, then it is trimmed to the length",
         "examples": [
             "lpad('dumbo', 10, '-')",
@@ -5578,7 +5578,7 @@ export const functions = [
     },
     {
         "name": "toString",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts a primitive datatype to a string. For numbers and date a format can be specified. If unspecified the system default is picked.Java decimal format is used for numbers. Refer to Java SimpleDateFormat for all possible date formats; the default format is yyyy-MM-dd. For timestamp a timezone can be optionally specified. For date or timestamp a locale can be optionally specified.",
         "examples": [
             "toString(10)",
@@ -5626,7 +5626,7 @@ export const functions = [
     },
     {
         "name": "round",
-        "kind": "function",
+        "kind": "functions",
         "description": "Rounds a number given an optional scale and an optional rounding mode. If the scale is omitted, it is defaulted to 0.  If the mode is omitted, it is defaulted to ROUND_HALF_UP(5). The values for rounding include  \n1 - ROUND_UP  \n2 - ROUND_DOWN  \n3 - ROUND_CEILING  \n4 - ROUND_FLOOR  \n5 - ROUND_HALF_UP  \n6 - ROUND_HALF_DOWN  \n7 - ROUND_HALF_EVEN  \n8 - ROUND_UNNECESSARY  ",
         "examples": [
             "round(100.123)",
@@ -5660,7 +5660,7 @@ export const functions = [
     },
     {
         "name": "length",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the length of the string",
         "examples": [
             "length('dumbo')",
@@ -5684,7 +5684,7 @@ export const functions = [
     },
     {
         "name": "toDate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts input date string to date using an optional input date format. Refer to Java's SimpleDateFormat for available formats. If the input date format is omitted, default format is yyyy-[M]M-[d]d. Accepted formats are :[ yyyy, yyyy-[M]M, yyyy-[M]M-[d]d, yyyy-[M]M-[d]dT* ]",
         "examples": [
             "toDate('2012-8-18')",
@@ -5716,7 +5716,7 @@ export const functions = [
     },
     {
         "name": "isUpdate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the row is marked for update. For transformations taking more than one input stream you can pass the (1-based) index of the stream. The stream index should be either 1 or 2 and the default value is 1",
         "examples": [
             "isUpdate()",
@@ -5742,7 +5742,7 @@ export const functions = [
     },
     {
         "name": "covariancePopulationIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the population covariance of two columns",
         "examples": [
             "covariancePopulationIf(region == 'West', sales)",
@@ -5768,7 +5768,7 @@ export const functions = [
     },
     {
         "name": "regexExtract",
-        "kind": "function",
+        "kind": "functions",
         "description": "Extract a matching substring for a given regex pattern. The last parameter identifies the match group and is defaulted to 1 if omitted. Use `<regex>`(back quote) to match a string without escaping",
         "examples": [
             "regexExtract('Cost is between 600 and 800 dollars', '(\\\\d+) and (\\\\d+)', 2)",
@@ -5800,7 +5800,7 @@ export const functions = [
     },
     {
         "name": "cosh",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a hyperbolic cosine of a value",
         "examples": [
             "cosh(0)",
@@ -5824,7 +5824,7 @@ export const functions = [
     },
     {
         "name": "typeMatch",
-        "kind": "function",
+        "kind": "functions",
         "description": "Matches the type of the column. Can only be used in pattern expressions.number matches short, integer, long, double, float or decimal, integral matches short, integer, long, fractional matches double, float, decimal and datetime matches date or timestamp type",
         "examples": [
             "typeMatch(type, 'number')",
@@ -5853,7 +5853,7 @@ export const functions = [
     },
     {
         "name": "skewness",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the skewness of a column",
         "examples": [
             "skewness(sales)",
@@ -5877,7 +5877,7 @@ export const functions = [
     },
     {
         "name": "rpad",
-        "kind": "function",
+        "kind": "functions",
         "description": "Right pads the string by the supplied padding until it is of a certain length. If the string is equal to or greater than the length, then it is trimmed to the length",
         "examples": [
             "rpad('dumbo', 10, '-')",
@@ -5911,7 +5911,7 @@ export const functions = [
     },
     {
         "name": "substring",
-        "kind": "function",
+        "kind": "functions",
         "description": "Extracts a substring of a certain length from a position. Position is 1 based. If the length is omitted, it is defaulted to end of the string",
         "examples": [
             "substring('Cat in the hat', 5, 2)",
@@ -5947,7 +5947,7 @@ export const functions = [
     },
     {
         "name": "regexReplace",
-        "kind": "function",
+        "kind": "functions",
         "description": "Replace all occurrences of a regex pattern with another substring in the given string Use `<regex>`(back quote) to match a string without escaping",
         "examples": [
             "regexReplace('100 and 200', '(\\\\d+)', 'bojjus')",
@@ -5979,7 +5979,7 @@ export const functions = [
     },
     {
         "name": "power",
-        "kind": "function",
+        "kind": "functions",
         "description": "Raises one number to the power of another",
         "examples": [
             "power(10, 2)",
@@ -6004,7 +6004,7 @@ export const functions = [
     },
     {
         "name": "case",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on alternating conditions applies one value or the other. If the number of inputs are even, the other is defaulted to NULL for last condition",
         "examples": [
             "case(10 + 20 == 30, 'dumbo', 'gumbo')",
@@ -6040,7 +6040,7 @@ export const functions = [
     },
     {
         "name": "toShort",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to a short value. An optional Java decimal format can be used for the conversion. Truncates any integer, long, float, double",
         "examples": [
             "toShort(123)",
@@ -6074,7 +6074,7 @@ export const functions = [
     },
     {
         "name": "toByte",
-        "kind": "function",
+        "kind": "functions",
         "description": "Converts any numeric or string to a byte value. An optional Java decimal format can be used for the conversion.",
         "examples": [
             "toByte(123)",
@@ -6108,7 +6108,7 @@ export const functions = [
     },
     {
         "name": "sort",
-        "kind": "function",
+        "kind": "functions",
         "description": "Sorts the array using the provided predicate function. Sort expects a reference to two consecutive elements in the expression function as #item1 and #item2",
         "examples": [
             "sort([4, 8, 2, 3], compare(#item1, #item2))",
@@ -6137,7 +6137,7 @@ export const functions = [
     },
     {
         "name": "type",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the type as described in input/output schemas taking a column name or an expression. Return null if the column is not found",
         "examples": [
             "type(byPosition(1))",
@@ -6165,7 +6165,7 @@ export const functions = [
     },
     {
         "name": "trim",
-        "kind": "function",
+        "kind": "functions",
         "description": "Trims a string of leading and trailing characters. If second parameter is unspecified, it trims whitespace. Else it trims any character specified in the second parameter",
         "examples": [
             "trim('  dumbo  ')",
@@ -6194,7 +6194,7 @@ export const functions = [
     },
     {
         "name": "byPosition",
-        "kind": "function",
+        "kind": "functions",
         "description": "Selects a column value by its relative position(1 based) in the stream. If the position is out of bounds it returns a NULL value. The returned value has to be type converted by one of the type conversion functions(TO_DATE, TO_STRING ...)Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "toString(byPosition(1))",
@@ -6226,7 +6226,7 @@ export const functions = [
     },
     {
         "name": "hasPath",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if a certain hierarchical path exists by name in the stream. You can pass an optional stream name as the second argument. Column names/paths known at design time should be addressed just by their name or dot notation path. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "hasPath('grandpa.parent.child')",
@@ -6253,7 +6253,7 @@ export const functions = [
     },
     {
         "name": "byPath",
-        "kind": "function",
+        "kind": "functions",
         "description": "Finds a hierarchical path by name in the stream. You can pass an optional stream name as the second argument. If no such path is found it returns null. Column names/paths known at design time should be addressed just by their name or dot notation path. Computed inputs are not supported but you can use parameter substitutions",
         "examples": [
             "byPath('grandpa.parent.child')",
@@ -6280,7 +6280,7 @@ export const functions = [
     },
     {
         "name": "tan",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a tangent value",
         "examples": [
             "tan(0)",
@@ -6304,7 +6304,7 @@ export const functions = [
     },
     {
         "name": "abs",
-        "kind": "function",
+        "kind": "functions",
         "description": "Absolute value of a number.",
         "examples": [
             "abs(-20)",
@@ -6330,7 +6330,7 @@ export const functions = [
     },
     {
         "name": "greater",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison greater operator. Same as > operator",
         "examples": [
             "greater(12, 24)",
@@ -6359,7 +6359,7 @@ export const functions = [
     },
     {
         "name": "sumIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on criteria gets the aggregate sum of a numeric column. The condition can be based on any column",
         "examples": [
             "sumIf(state == 'CA' && commission < 10000, sales)",
@@ -6386,7 +6386,7 @@ export const functions = [
     },
     {
         "name": "contains",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns true if any element in the provided array evaluates as true in the provided predicate. Contains expects a reference to one element in the predicate function as #item",
         "examples": [
             "contains([1, 2, 3, 4], #item == 3)",
@@ -6415,7 +6415,7 @@ export const functions = [
     },
     {
         "name": "keyValues",
-        "kind": "function",
+        "kind": "functions",
         "description": "Creates a map of key/values. The first parameter is an array of keys and second is the array of values. Both arrays should have equal length.",
         "examples": [
             "keyValues(['bojjus', 'appa'], ['gunchus', 'ammi'])",
@@ -6442,7 +6442,7 @@ export const functions = [
     },
     {
         "name": "varianceSample",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the unbiased variance of a column",
         "examples": [
             "varianceSample(sales)",
@@ -6466,7 +6466,7 @@ export const functions = [
     },
     {
         "name": "sin",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a sine value",
         "examples": [
             "sin(2)",
@@ -6490,7 +6490,7 @@ export const functions = [
     },
     {
         "name": "except",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a difference set of one array from another dropping duplicates",
         "examples": [
             "except([10, 20, 30], [20, 40])",
@@ -6519,7 +6519,7 @@ export const functions = [
     },
     {
         "name": "milliseconds",
-        "kind": "function",
+        "kind": "functions",
         "description": "Duration in milliseconds for number of milliseconds",
         "examples": [
             "milliseconds(2)",
@@ -6543,7 +6543,7 @@ export const functions = [
     },
     {
         "name": "stddevSample",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the sample standard deviation of a column",
         "examples": [
             "stddevSample(sales)",
@@ -6567,7 +6567,7 @@ export const functions = [
     },
     {
         "name": "add",
-        "kind": "function",
+        "kind": "functions",
         "description": "Adds a pair of strings or numbers. Adds a date to a number of days. Adds a duration to a timestamp. Appends one array of similar type to another. Same as the + operator",
         "examples": [
             "add(10, 20)",
@@ -6606,7 +6606,7 @@ export const functions = [
     },
     {
         "name": "varianceIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the variance of a column",
         "examples": [
             "varianceIf(region == 'West', sales)",
@@ -6631,7 +6631,7 @@ export const functions = [
     },
     {
         "name": "skewnessIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the skewness of a column",
         "examples": [
             "skewnessIf(region == 'West', sales)",
@@ -6656,7 +6656,7 @@ export const functions = [
     },
     {
         "name": "regexMatch",
-        "kind": "function",
+        "kind": "functions",
         "description": "Checks if the string matches the given regex pattern. Use `<regex>`(back quote) to match a string without escaping",
         "examples": [
             "regexMatch('200.50', '(\\\\d+).(\\\\d+)')",
@@ -6685,7 +6685,7 @@ export const functions = [
     },
     {
         "name": "reassociate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Transforms a map by associating the keys to new values. It takes a mapping function where you can address the item as #key and current value as #value.",
         "examples": [
             "reassociate(['bojjus' -> 'gunchus', 'appa' -> 'ammi'], substring(#key, 1, 1) + substring(#value, 1, 1))",
@@ -6710,7 +6710,7 @@ export const functions = [
     },
     {
         "name": "stddevSampleIf",
-        "kind": "function",
+        "kind": "functions",
         "description": "Based on a criteria, gets the sample standard deviation of a column",
         "examples": [
             "stddevSampleIf(region == 'West', sales)",
@@ -6735,7 +6735,7 @@ export const functions = [
     },
     {
         "name": "compare",
-        "kind": "function",
+        "kind": "functions",
         "description": "Compares two values of the same type. Returns negative integer if value1 < value2, 0 if value1 == value2, positive value if value1 > value2",
         "examples": [
             "(compare(12, 24) < 1)",
@@ -6762,7 +6762,7 @@ export const functions = [
     },
     {
         "name": "like",
-        "kind": "function",
+        "kind": "functions",
         "description": "The pattern is a string that is matched literally. The exceptions are the following special symbols:  _ matches any one character in the input (similar to . in posix regular expressions) \n  % matches zero or more characters in the input (similar to .* in posix regular expressions).\n  The escape character is ''. If an escape character precedes a special symbol or another escape character, the following character is matched literally. It is invalid to escape any other character.",
         "examples": [
             "like('icecream', 'ice%')",
@@ -6789,7 +6789,7 @@ export const functions = [
     },
     {
         "name": "sum",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the aggregate sum of a numeric column",
         "examples": [
             "sum(col)",
@@ -6813,7 +6813,7 @@ export const functions = [
     },
     {
         "name": "log",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates log value. An optional base can be supplied else a euler number if used",
         "examples": [
             "log(100, 10)",
@@ -6838,7 +6838,7 @@ export const functions = [
     },
     {
         "name": "and",
-        "kind": "function",
+        "kind": "functions",
         "description": "Logical AND operator. Same as &&",
         "examples": [
             "and(true, false)",
@@ -6865,7 +6865,7 @@ export const functions = [
     },
     {
         "name": "currentDate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the current date when this job starts to run. You can pass an optional timezone in the form of 'GMT', 'PST', 'UTC', 'America/Cayman'. The local timezone is used as the default. Refer to Java's SimpleDateFormat for available formats.",
         "examples": [
             "currentDate() == toDate('2250-12-31')",
@@ -6893,7 +6893,7 @@ export const functions = [
     },
     {
         "name": "locate",
-        "kind": "function",
+        "kind": "functions",
         "description": "Finds the position(1 based) of the substring within a string starting a certain position. If the position is omitted it is considered from the beginning of the string. 0 is returned if not found",
         "examples": [
             "locate('mbo', 'dumbo')",
@@ -6927,7 +6927,7 @@ export const functions = [
     },
     {
         "name": "originColumns",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets all output columns for a origin stream where columns were created.",
         "examples": [
             "columns()",
@@ -6953,7 +6953,7 @@ export const functions = [
     },
     {
         "name": "right",
-        "kind": "function",
+        "kind": "functions",
         "description": "Extracts a substring with number of characters from the right. Same as SUBSTRING(str, LENGTH(str) - n, n)",
         "examples": [
             "right('bojjus', 2)",
@@ -6982,7 +6982,7 @@ export const functions = [
     },
     {
         "name": "acos",
-        "kind": "function",
+        "kind": "functions",
         "description": "Calculates a cosine inverse value",
         "examples": [
             "acos(1)",
@@ -7006,7 +7006,7 @@ export const functions = [
     },
     {
         "name": "cumeDist",
-        "kind": "function",
+        "kind": "functions",
         "description": "The CumeDist function computes the position of a value relative to all values in the partition. The result is the number of rows preceding or equal to the current row in the ordering of the partition divided by the total number of rows in the window partition. Any tie values in the  ordering will evaluate to the same position.",
         "examples": [
             "cumeDist()",
@@ -7030,7 +7030,7 @@ export const functions = [
     },
     {
         "name": "days",
-        "kind": "function",
+        "kind": "functions",
         "description": "Duration in milliseconds for number of days",
         "examples": [
             "days(2)",
@@ -7054,7 +7054,7 @@ export const functions = [
     },
     {
         "name": "month",
-        "kind": "function",
+        "kind": "functions",
         "description": "Gets the month value of a date or timestamp",
         "examples": [
             "month(toDate('2012-8-8'))",
@@ -7078,7 +7078,7 @@ export const functions = [
     },
     {
         "name": "notEquals",
-        "kind": "function",
+        "kind": "functions",
         "description": "Comparison not equals operator. Same as != operator",
         "examples": [
             "12 != 24",
@@ -7105,7 +7105,7 @@ export const functions = [
     },
     {
         "name": "collect",
-        "kind": "function",
+        "kind": "functions",
         "description": "Collects all values of the expression in the aggregated group into a array. Structures can be collected and transformed to alternate structures during this process. The number of items will be equal to the number of rows in that group and can contain null values. The number of collected items should be small",
         "examples": [
             "collect(salesPerson)",
@@ -7133,7 +7133,7 @@ export const functions = [
     },
     {
         "name": "random",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns a random number given an optional seed within a partition. The seed should be a fixed value and is used in conjunction with the partitionId to produce random values",
         "examples": [
             "random(1)",
@@ -7157,7 +7157,7 @@ export const functions = [
     },
     {
         "name": "size",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the size of an array or map type",
         "examples": [
             "size(['bojjus', 'gunchus'])",
@@ -7183,7 +7183,7 @@ export const functions = [
     },
     {
         "name": "lookup",
-        "kind": "function",
+        "kind": "functions",
         "description": "Looks up (first row) the specified keys in the cache sink",
         "examples": [
             "cacheSink1#lookup(key1,key2)",
@@ -7208,7 +7208,7 @@ export const functions = [
     },
     {
         "name": "mlookup",
-        "kind": "function",
+        "kind": "functions",
         "description": "Looks up the specified keys in the cache sink",
         "examples": [
             "cacheSink1#mlookup(key1,key2)",
@@ -7233,7 +7233,7 @@ export const functions = [
     },
     {
         "name": "outputs",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the outputs of the cache sink",
         "examples": [
             "cacheSink1#outputs()",
@@ -7257,7 +7257,7 @@ export const functions = [
     },
     {
         "name": "output",
-        "kind": "function",
+        "kind": "functions",
         "description": "Returns the first row from output of the cache sink",
         "examples": [
             "cacheSink1#output()",
@@ -7281,7 +7281,7 @@ export const functions = [
     },
     {
         "name": "find",
-        "kind": "function",
+        "kind": "functions",
         "description": "Find the first item from an array that match the condition. It takes a filter function where you can address the item in the array as #item. For deeply nested maps you can refer to the parent maps using the #item_n(#item_1, #item_2...) notation.",
         "examples": [
             "find([10, 20, 30], #item > 10)",

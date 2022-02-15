@@ -5,12 +5,10 @@ import { Messages } from "./messages";
 
 const nameEditor = 'expression-buider';
 const themeNameEditor = "expression-buider-theme";
-const externalParams = [
-    "CTY_REGISTRATION_ENTERPRISE_SCORE",
-    "PTSTATUSCHANGEDATE"
-]
+let externalParams = []
 
-export const initEditor = (divEditor) => {
+export const initEditor = (divEditor, externalParamsSource) => {
+    externalParams = externalParamsSource || [];
     loader.init().then((monaco) => {
         const wrapper = document.getElementById(divEditor);
         wrapper.style.height = "40vh";
@@ -44,7 +42,7 @@ const providerDocumentSemanticTokens = (monaco) => {
     monaco.languages.registerDocumentSemanticTokensProvider(nameEditor, {
         getLegend: () => ({
             tokenTypes: functions.map(i => i.name),
-            tokenModifiers: externalParams
+            tokenModifiers: externalParams.map(i => i.name)
         }),
         provideDocumentSemanticTokens: (model, lastResultId, token) => {
             const lines = model.getLinesContent();
@@ -131,7 +129,7 @@ const providerDefineTheme = (monaco) => {
         semanticHighlighting: true,
         rules: [
             { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
-            { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
+            { token: 'operator', foreground: '615a60' },
             { token: 'keyword', foreground: '0000ff' },
             { token: 'externalParameters', foreground: '1db010' }
         ]
@@ -142,7 +140,7 @@ const providerMonarchTokens = (monaco) => {
     monaco.languages.setMonarchTokensProvider(nameEditor, {
         defaultToken: "",
         keywords: functions.map(i => i.name),
-        externalParameters: externalParams,
+        externalParameters: externalParams.map(i => i.name),
         escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
         symbols: /[=><!~?:&|+\-*\/\^%]+/,
         operators: [
@@ -178,7 +176,7 @@ const providerMonarchTokens = (monaco) => {
                     }
                 }],
             ],
-            externalParameters: [[externalParams.join('|'), "externalParameters"]],
+            externalParameters: [[externalParams.map(i => i.name).join('|'), "externalParameters"]],
             comment: [
                 [/[^\/*]+/, 'comment'],
                 [/\/\*/, 'comment', '@push'],
@@ -213,7 +211,7 @@ const providerHoverDef = (monaco) => {
             var hoverWord = model.getWordAtPosition(position);
             if (!hoverWord || !hoverWord.word)
                 return;
-            var item = findFunction(hoverWord.word);            
+            var item = findFunction(hoverWord.word);
             if (item == null || item == undefined)
                 return;
 
@@ -369,7 +367,7 @@ const getKind = (kind, monaco) => {
     return monaco.languages.CompletionItemKind.Text;
 }
 
-export const insertItemValue = (item) => {
+const getCurrentRange = () => {
     const selection = window.currentEditor.getSelection();
     const range = new window.currentMonaco.Range(
         selection.selectionStartLineNumber,
@@ -377,12 +375,25 @@ export const insertItemValue = (item) => {
         selection.endLineNumber,
         selection.positionColumn
     );
+    return range;
+}
 
-    window.currentEditor.trigger('keyboard', 'type', { text: `${item.name}`, range: range });
+export const insertItemValue = (item) => {
+    
+
+    window.currentEditor.trigger('keyboard', 'type', { text: `${item.name}`, range: getCurrentRange() });
     window.currentEditor.trigger('keyboard', 'editor.action.triggerSuggest', {});
     setTimeout(() => {
         window.currentEditor.trigger('editor', 'acceptSelectedSuggestion', {});
-    }, 100);
+    }, 100);}
+
+export const insertTextValue = (value) => {
+    window.currentEditor.executeEdits('', [
+        { text: value, range: getCurrentRange() }
+    ])
+    window.currentEditor.focus();
+    const position = window.currentEditor.getPosition();
+    window.currentEditor.setPosition(position);
 }
 
 const getInsertText = (value) => {
@@ -391,8 +402,11 @@ const getInsertText = (value) => {
 }
 
 export const getDetail = (item) => {
+    if (!item.parametersToAutoComplete)
+        return ` => ${item.returnType}`;
+
     const params = item.parametersToAutoComplete.length ? item.parametersToAutoComplete.map((e, t) => `${e}: ${item.inputTypes[t]}`) : item.inputTypes;
-    return `(${params.join(", ")}) => ${item.returnType}`
+    return `(${params.join(", ")}) => ${item.returnType}`;
 }
 
 export const getDocumentation = (item) => {

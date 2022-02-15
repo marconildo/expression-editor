@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { initEditor, insertItemValue } from "./config/editorConfig";
+import { initEditor, insertItemValue, insertTextValue } from "./config/editorConfig";
 import _ from "lodash";
 
 import { SearchOutlined } from '@ant-design/icons';
@@ -10,7 +10,7 @@ import ExpressionDescription from './expressionDescription'
 
 const { Content, Footer } = Layout;
 
-const ExpressionEditor = () => {
+const ExpressionEditor = ({ externalParams }) => {
     const [seletedFunctionType, setSeletedFunctionType] = useState(null);
     const [searchName, setSearchName] = useState(null);
     const [data, setData] = useState([]);
@@ -57,6 +57,10 @@ const ExpressionEditor = () => {
         setExpression(item);
     }
 
+    const onOperationClick = (value) => {
+        insertTextValue(value);
+    }
+
     const onItemOut = () => {
         setExpression(null);
     }
@@ -67,7 +71,15 @@ const ExpressionEditor = () => {
     }
 
     const loadData = () => {
-        setData(_.orderBy(functions.filter(i => (seletedFunctionType == null || i.functionType == seletedFunctionType.title)
+        let source = externalParams.map(item => ({
+            "name": item.name,
+            "returnType": item.dataType || "any",
+            "kind": "Parameters"
+        }));
+
+        source = _.union(source, functions);
+
+        setData(_.orderBy(source.filter(i => (seletedFunctionType == null || (i.functionType == seletedFunctionType.title || (i.kind != null && i.kind.toString().toLowerCase() == seletedFunctionType.title.toString().toLowerCase())))
             && (searchName == null || i.name.toLowerCase().indexOf(searchName.toLowerCase()) != -1)
         ), 'name'));
     }
@@ -83,7 +95,7 @@ const ExpressionEditor = () => {
 
     useEffect(() => {
         loadData();
-        initEditor("expression-editor");
+        initEditor("expression-editor", externalParams);
     }, [])
 
     return <Fragment>
@@ -99,21 +111,21 @@ const ExpressionEditor = () => {
                 <Row>
                     <Col span={24} style={{ margin: "10px 0 10px 0px" }}>
                         <Space wrap>
-                            <Button className="btn-operations">+</Button>
-                            <Button className="btn-operations">-</Button>
-                            <Button className="btn-operations">*</Button>
-                            <Button className="btn-operations">/</Button>
-                            <Button className="btn-operations">{"| |"}</Button>
-                            <Button className="btn-operations">{"&&"}</Button>
-                            <Button className="btn-operations">!</Button>
-                            <Button className="btn-operations">^</Button>
-                            <Button className="btn-operations">==</Button>
-                            <Button className="btn-operations">!=</Button>
-                            <Button className="btn-operations">{">"}</Button>
-                            <Button className="btn-operations">{"<"}</Button>
-                            <Button className="btn-operations">{">="}</Button>
-                            <Button className="btn-operations">{"<="}</Button>
-                            <Button className="btn-operations">{"[ ]"}</Button>
+                            <Button onClick={() => onOperationClick("+")} className="btn-operations">+</Button>
+                            <Button onClick={() => onOperationClick("-")} className="btn-operations">-</Button>
+                            <Button onClick={() => onOperationClick("*")} className="btn-operations">*</Button>
+                            <Button onClick={() => onOperationClick("/")} className="btn-operations">/</Button>
+                            <Button onClick={() => onOperationClick("||")} className="btn-operations">{"| |"}</Button>
+                            <Button onClick={() => onOperationClick("&&")} className="btn-operations">{"&&"}</Button>
+                            <Button onClick={() => onOperationClick("!")} className="btn-operations">!</Button>
+                            <Button onClick={() => onOperationClick("^")} className="btn-operations">^</Button>
+                            <Button onClick={() => onOperationClick("==")} className="btn-operations">==</Button>
+                            <Button onClick={() => onOperationClick("!=")} className="btn-operations">!=</Button>
+                            <Button onClick={() => onOperationClick(">")} className="btn-operations">{">"}</Button>
+                            <Button onClick={() => onOperationClick("<")} className="btn-operations">{"<"}</Button>
+                            <Button onClick={() => onOperationClick(">=")} className="btn-operations">{">="}</Button>
+                            <Button onClick={() => onOperationClick("<=")} className="btn-operations">{"<="}</Button>
+                            <Button onClick={() => onOperationClick("[]")} className="btn-operations">{"[ ]"}</Button>
                         </Space>
                     </Col>
                 </Row>
@@ -128,7 +140,7 @@ const ExpressionEditor = () => {
                                 showIcon
                                 onSelect={onSelectTree}
                                 defaultExpandedKeys={['2-0']}
-                                defaultSelectedKeys={['0-0']}
+                                defaultSelectedKeys={[externalParams.length > 0 ? '1-0' : '2-0']}
                                 style={{ minwidth: 200 }}
                                 treeData={treeData} />
                         </div>

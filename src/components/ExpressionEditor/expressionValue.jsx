@@ -29,9 +29,11 @@ const ExpressionValue = ({ item }) => {
                 iconType = "svg-map";
                 break;
             case "datetime":
+            case "date":
                 iconType = "svg-date";
                 break;
             case "timestamp":
+            case "time":
                 iconType = "svg-timestamp";
                 break;
             case "complex":
@@ -50,7 +52,7 @@ const ExpressionValue = ({ item }) => {
 
         if (item.parametersDescription.length > 0) {
             item.parametersDescription.forEach((e, i) => {
-                args.push(<div key={`expression_0_${i}`} style={{marginLeft: i == 0 ? 0 : 3, marginRight: 0}} className={'func-type ' + getIconType(item.inputTypes[i])} />);
+                args.push(<div key={`expression_0_${i}`} style={{ marginLeft: i == 0 ? 0 : 3, marginRight: 0 }} className={'func-type ' + getIconType(item.inputTypes[i])} />);
                 args.push(<label key={`expression_1_${i}`} className="func-name">{e}</label>);
 
                 if (i < (item.parametersDescription.length - 1))
@@ -59,7 +61,7 @@ const ExpressionValue = ({ item }) => {
         }
         else {
             item.inputTypes.forEach((e, i) => {
-                args.push(<div key={`expression_3_${i}`} style={{marginLeft: i == 0 ? 0 : 3, marginRight: 0}} className={'func-type ' + getIconType(e)} />);
+                args.push(<div key={`expression_3_${i}`} style={{ marginLeft: i == 0 ? 0 : 3, marginRight: 0 }} className={'func-type ' + getIconType(e)} />);
                 args.push(<label key={`expression_4_${i}`} className="func-name">{e}</label>);
 
                 if (i < (item.inputTypes.length - 1))

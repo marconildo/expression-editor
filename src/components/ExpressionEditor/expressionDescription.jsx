@@ -8,23 +8,27 @@ const { Text } = Typography;
 const ExpressionDescription = ({ item }) => {
 
     const getExamples = (item) => {
-        const examples = []
-        for (let t = 0; t < item.examples.length; t += 2) {
-            examples.push(<Text key={`example_0_${t}`}>{Math.round(t / 2) + 1}.</Text>);
-            examples.push(<Text key={`exemple_1_${t}`} code>{item.examples[t]}{item.examples[t + 1] ? " => " + item.examples[t + 1] : ""}</Text>);
-            examples.push(<br key={`example_2_${t}`} />);
+        const examples = [];
+        if (item.examples) {
+            for (let t = 0; t < item.examples.length; t += 2) {
+                examples.push(<Text key={`example_0_${t}`}>{Math.round(t / 2) + 1}.</Text>);
+                examples.push(<Text key={`exemple_1_${t}`} code>{item.examples[t]}{item.examples[t + 1] ? " => " + item.examples[t + 1] : ""}</Text>);
+                examples.push(<br key={`example_2_${t}`} />);
+            }
         }
         return examples;
     }
 
     const getInputs = (item) => {
         const inputs = []
-        for (let t = 0; t < item.inputTypes.length; t += 1) {
-            inputs.push(<Text key={`input_0_${t}`}>{t + 1}.</Text>);
-            inputs.push(<Text key={`input_1_${t}`} code>{item.parametersToAutoComplete[t] != null ? item.parametersToAutoComplete[t] : item.inputTypes[t]}: {item.inputTypes[t]}</Text>);
-            inputs.push(<br key={`input_2_${t}`} />);
+        if (item.inputTypes) {
+            for (let t = 0; t < item.inputTypes.length; t += 1) {
+                inputs.push(<Text key={`input_0_${t}`}>{t + 1}.</Text>);
+                inputs.push(<Text key={`input_1_${t}`} code>{item.parametersToAutoComplete[t] != null ? item.parametersToAutoComplete[t] : item.inputTypes[t]}: {item.inputTypes[t]}</Text>);
+                inputs.push(<br key={`input_2_${t}`} />);
+            }
+            return inputs;
         }
-        return inputs;
     }
 
     return <Fragment>
@@ -41,9 +45,11 @@ const ExpressionDescription = ({ item }) => {
                     <Text code>{`${item.name}${getDetail(item)}`}</Text>
                 </div>
                 <Divider style={{ paddingTop: 0, margin: 0 }} />
-                <div>
-                    <Text>{item.description}</Text>
-                </div>
+                {item.description &&
+                    <div>
+                        <Text>{item.description}</Text>
+                    </div>
+                }
                 {item.inputTypes && item.inputTypes.length > 0 &&
                     <div style={{ marginTop: 5 }}>
                         <Text strong style={{ marginTop: 5 }}>Inputs</Text>
