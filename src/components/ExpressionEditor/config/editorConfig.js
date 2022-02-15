@@ -20,6 +20,7 @@ export const initEditor = (divEditor, externalParamsSource) => {
             readOnly: false,
             fontSize: 14,
             theme: themeNameEditor,
+            automaticLayout: true,
             "semanticHighlighting.enabled": true
         };
         if (!monaco.languages.getLanguages().some(({ id }) => id === nameEditor)) {
@@ -38,90 +39,6 @@ export const initEditor = (divEditor, externalParamsSource) => {
     });
 }
 
-const providerDocumentSemanticTokens = (monaco) => {
-    monaco.languages.registerDocumentSemanticTokensProvider(nameEditor, {
-        getLegend: () => ({
-            tokenTypes: functions.map(i => i.name),
-            tokenModifiers: externalParams.map(i => i.name)
-        }),
-        provideDocumentSemanticTokens: (model, lastResultId, token) => {
-            const lines = model.getLinesContent();
-
-            if (!expressionIsBalanced(lines)) {
-                monaco.editor.setModelMarkers(model, nameEditor, [
-                    {
-                        startLineNumber: 0,
-                        endLineNumber: model.getLineCount(),
-                        startColumn: 0,
-                        endColumn: model.getLineMaxColumn(model.getLineCount()),
-                        message: Messages.ErrorInvalidExpression,
-                        severity: monaco.MarkerSeverity.Error
-                    }
-                ]);
-                return;
-            }
-            monaco.editor.setModelMarkers(model, nameEditor, []);
-
-            const data = [];
-            let prevLine = 0;
-            let prevChar = 0;
-            const modelMarkers = [];
-
-            let expression = "";
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                var split = line.match(/([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g);
-                console.log(split);
-                if (split != null) {
-                    for (let x = 0; x < split.length; x++) {
-                        var item = findFunction(split[x]);
-                        if (item != null && item.requiredParameters > 0) {
-                            let indexWord = expression.indexOf(item.name);
-
-                            let args = /\(\s*([^)]+?)\s*\)/.exec(line);
-                            console.log(args);
-
-                            //                 let isValid = true;
-                            //                 if (args) {
-                            //                     if (args[1]) {
-                            //                         console.log("args 1: ", args[1])
-                            //                         args = args[1].split(/\s*,\s*/);
-                            //                     }
-                            //                     const filtered = args.filter((v) => v != '');
-                            //                     if (filtered.length < item.requiredParameters)
-                            //                         isValid = false;
-                            //                 }
-                            //                 else
-                            //                     isValid = false;
-
-                            //                 if (!isValid) {
-                            //                     monaco.editor.setModelMarkers(model, nameEditor, [
-                            //                         {
-                            //                             startLineNumber: i,
-                            //                             endLineNumber: i,
-                            //                             startColumn: indexWord,
-                            //                             endColumn: (indexWord + 1) + item.name.length,
-                            //                             message: `'${item.name}' expects minimum '${item.requiredParameters}' number of parameters`,
-                            //                             severity: monaco.MarkerSeverity.Error
-                            //                         }
-                            //                     ]);
-                            //                 }
-
-                            //                 monaco.editor.setModelMarkers(model, nameEditor, modelMarkers);
-                        }
-                    }
-                }
-            }
-
-            return {
-                data: new Uint32Array(data),
-                resultId: null
-            };
-        },
-        releaseDocumentSemanticTokens: (resultId) => { }
-    });
-}
-
 const providerDefineTheme = (monaco) => {
     monaco.editor.defineTheme(themeNameEditor, {
         base: 'vs',
@@ -129,7 +46,7 @@ const providerDefineTheme = (monaco) => {
         semanticHighlighting: true,
         rules: [
             { token: 'comment', foreground: 'aaaaaa', fontStyle: 'italic' },
-            { token: 'operator', foreground: '615a60' },
+            { token: 'label', foreground: '615a60' },
             { token: 'keyword', foreground: '0000ff' },
             { token: 'externalParameters', foreground: '1db010' }
         ]
@@ -258,13 +175,16 @@ const providerCompletionDef = (monaco) => {
 
 const providerValidation = (monaco) => {
     monaco.editor.onDidCreateModel((model) => {
+        let handler = "";
+        
         const validate = () => {
-            console.log("validate");
+            console.log(handler);
+            handler = "";
         }
 
         var handle = null;
         model.onDidChangeContent((e) => {
-            console.log(e);
+            handler += e.changes[0].text;
             clearTimeout(handle);
             handle = setTimeout(() => validate(), 500);
         });

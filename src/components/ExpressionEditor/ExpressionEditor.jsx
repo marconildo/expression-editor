@@ -68,6 +68,7 @@ const ExpressionEditor = ({ externalParams }) => {
     const loadData = () => {
         let source = externalParams.map(item => ({
             "name": item.name,
+            "description" : item.description,
             "returnType": item.dataType || "any",
             "kind": "Parameters"
         }));
