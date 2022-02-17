@@ -305,6 +305,7 @@ export const insertItemValue = (item) => {
     window.currentEditor.trigger('keyboard', 'editor.action.triggerSuggest', {});
     setTimeout(() => {
         window.currentEditor.trigger('editor', 'acceptSelectedSuggestion', {});
+        window.currentEditor.trigger('keyboard', 'editor.action.triggerParameterHints', {});
     }, 100);}
 
 export const insertTextValue = (value) => {

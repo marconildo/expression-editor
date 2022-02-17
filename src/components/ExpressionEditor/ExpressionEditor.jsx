@@ -13,6 +13,7 @@ const { Content, Footer } = Layout;
 const ExpressionEditor = ({ externalParams }) => {
     const [seletedFunctionType, setSeletedFunctionType] = useState(null);
     const [searchName, setSearchName] = useState(null);
+    const [loadFistTime, setLoadFistTime] = useState(false);
     const [data, setData] = useState([]);
     const [expression, setExpression] = useState(null);
     const [treeData] = useState([
@@ -47,8 +48,10 @@ const ExpressionEditor = ({ externalParams }) => {
 
     const onSelectTree = (selectedKeys, info) => {
         setExpression(null);
-        if (info.node.selected || info.node.title == "All")
+        if (info.node.selected || info.node.title == "All") {
             setSeletedFunctionType(null);
+            loadData();
+        }
         else
             setSeletedFunctionType(info.node);
     };
@@ -73,8 +76,9 @@ const ExpressionEditor = ({ externalParams }) => {
             "kind": "Parameters"
         }));
 
-         if (!firstTime || source.length == 0)
-             source = _.union(source, functions);
+        if (!firstTime || source.length == 0) {
+            source = _.union(source, functions);
+        }
 
         setData(_.orderBy(source.filter(i =>
             (seletedFunctionType == null || (i.functionType == seletedFunctionType.title || (i.kind != null && i.kind.toString().toLowerCase() == seletedFunctionType.title.toString().toLowerCase())))
@@ -83,16 +87,19 @@ const ExpressionEditor = ({ externalParams }) => {
     }
 
     useEffect(() => {
-        loadData();
+        if (loadFistTime)
+            loadData(false);
     }, [searchName])
 
     useEffect(() => {
-        loadData();
+        if (loadFistTime)
+            loadData(false);
     }, [seletedFunctionType])
 
 
     useEffect(() => {
         loadData(true);
+        setLoadFistTime(true);
         initEditor("expression-editor", externalParams);
     }, [])
 
