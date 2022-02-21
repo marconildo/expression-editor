@@ -57,11 +57,11 @@ const ExpressionDescription = ({ item }) => {
                     <Text keyboard>{`${item.name}${getDetail(item)}`}</Text>
                 </div>
                 <Divider style={{ padding: 0, marginTop: 3, marginBottom: 3 }} />
-                {item.description &&
-                    <div>
-                        <Text>{item.description}</Text>
-                    </div>
-                }
+
+                <div>
+                    <Text>{item.description || item.name}</Text>
+                </div>
+
                 {item.inputTypes && item.inputTypes.length > 0 &&
                     <div style={{ marginTop: 5 }}>
                         <Text strong style={{ marginTop: 5 }}>Inputs</Text>

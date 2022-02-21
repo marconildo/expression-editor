@@ -2291,7 +2291,7 @@ export const functions = [
             "string"
         ],
         "requiredParameters": 2,
-        "functionType": "General",
+        "functionType": "Text",
         "returnType": "boolean"
     },
     {
@@ -4016,7 +4016,7 @@ export const functions = [
             "string"
         ],
         "requiredParameters": 2,
-        "functionType": "General",
+        "functionType": "Text",
         "returnType": "array"
     },
     {
@@ -4117,7 +4117,7 @@ export const functions = [
             "string"
         ],
         "requiredParameters": 2,
-        "functionType": "General",
+        "functionType": "Text",
         "returnType": "boolean"
     },
     {
@@ -5795,7 +5795,7 @@ export const functions = [
             "integral"
         ],
         "requiredParameters": 2,
-        "functionType": "General",
+        "functionType": "Text",
         "returnType": "string"
     },
     {
@@ -5974,7 +5974,7 @@ export const functions = [
             "string"
         ],
         "requiredParameters": 3,
-        "functionType": "General",
+        "functionType": "Text",
         "returnType": "string"
     },
     {
@@ -6680,7 +6680,7 @@ export const functions = [
             "string"
         ],
         "requiredParameters": 2,
-        "functionType": "General",
+        "functionType": "Text",
         "returnType": "boolean"
     },
     {

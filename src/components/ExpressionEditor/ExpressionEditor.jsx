@@ -3,8 +3,9 @@ import { initEditor, insertItemValue, insertTextValue } from "./config/editorCon
 import _ from "lodash";
 
 import { SearchOutlined } from '@ant-design/icons';
-import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List } from 'antd';
+import { Layout, Row, Col, Input, Tree, Space, Button, Divider, List, Popover } from 'antd';
 import { functions } from "./config/listFunctions";
+import { operations } from "./config/listOperations";
 import ExpressionValue from './expressionValue'
 import ExpressionDescription from './expressionDescription'
 
@@ -116,21 +117,11 @@ const ExpressionEditor = ({ externalParams }) => {
                 <Row>
                     <Col span={24} style={{ margin: "10px 0 10px 0px" }}>
                         <Space wrap>
-                            <Button onClick={() => onOperationClick("+")} className="btn-operations">+</Button>
-                            <Button onClick={() => onOperationClick("-")} className="btn-operations">-</Button>
-                            <Button onClick={() => onOperationClick("*")} className="btn-operations">*</Button>
-                            <Button onClick={() => onOperationClick("/")} className="btn-operations">/</Button>
-                            <Button onClick={() => onOperationClick("||")} className="btn-operations">{"| |"}</Button>
-                            <Button onClick={() => onOperationClick("&&")} className="btn-operations">{"&&"}</Button>
-                            <Button onClick={() => onOperationClick("!")} className="btn-operations">!</Button>
-                            <Button onClick={() => onOperationClick("^")} className="btn-operations">^</Button>
-                            <Button onClick={() => onOperationClick("==")} className="btn-operations">==</Button>
-                            <Button onClick={() => onOperationClick("!=")} className="btn-operations">!=</Button>
-                            <Button onClick={() => onOperationClick(">")} className="btn-operations">{">"}</Button>
-                            <Button onClick={() => onOperationClick("<")} className="btn-operations">{"<"}</Button>
-                            <Button onClick={() => onOperationClick(">=")} className="btn-operations">{">="}</Button>
-                            <Button onClick={() => onOperationClick("<=")} className="btn-operations">{"<="}</Button>
-                            <Button onClick={() => onOperationClick("[]")} className="btn-operations">{"[ ]"}</Button>
+                            {operations.map(item => (
+                                <Popover content={item.description} mouseEnterDelay="1.5" trigger="hover">
+                                    <Button onClick={() => onOperationClick(item.value)} className="btn-operations">{item.value}</Button>
+                                </Popover>
+                            ))}
                         </Space>
                     </Col>
                 </Row>
