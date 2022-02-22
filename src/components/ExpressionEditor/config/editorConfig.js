@@ -1,8 +1,6 @@
 import { functions, dataTypeStrings } from "./listFunctions";
-import { expressionIsBalanced } from './expression';
 import loader from "@monaco-editor/loader";
-import { Messages } from "./messages";
-import { Jsep } from 'jsep';
+import { ExpressionValidator } from "../validation/expressionValidator";
 
 const nameEditor = 'expression-buider';
 const themeNameEditor = "expression-buider-theme";
@@ -179,11 +177,9 @@ const providerValidation = (monaco) => {
         let handler = "";
 
         const validate = () => {
-            if (window.currentEditor) {
-                // const tokenizer = Token.getInst()
-                // const tokens = tokenizer.tokenize(window.currentEditor.getValue());
-                const parse_tree = Jsep.parse(window.currentEditor.getValue());
-                console.log(parse_tree);
+            if (monaco.editor) {
+                const validator = ExpressionValidator.getInst();
+                validator.validate(monaco.editor);
             }
         }
 
