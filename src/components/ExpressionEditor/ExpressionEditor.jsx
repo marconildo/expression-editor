@@ -117,8 +117,8 @@ const ExpressionEditor = ({ externalParams }) => {
                 <Row>
                     <Col span={24} style={{ margin: "10px 0 10px 0px" }}>
                         <Space wrap>
-                            {operations.map(item => (
-                                <Popover content={item.description} mouseEnterDelay="1.5" trigger="hover">
+                            {operations.map((item, k) => (
+                                <Popover key={k} content={item.description} mouseEnterDelay="1.5" trigger="hover">
                                     <Button onClick={() => onOperationClick(item.value)} className="btn-operations">{item.value}</Button>
                                 </Popover>
                             ))}

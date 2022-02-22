@@ -2,6 +2,7 @@ import { functions, dataTypeStrings } from "./listFunctions";
 import { expressionIsBalanced } from './expression';
 import loader from "@monaco-editor/loader";
 import { Messages } from "./messages";
+import { Jsep } from 'jsep';
 
 const nameEditor = 'expression-buider';
 const themeNameEditor = "expression-buider-theme";
@@ -176,10 +177,14 @@ const providerCompletionDef = (monaco) => {
 const providerValidation = (monaco) => {
     monaco.editor.onDidCreateModel((model) => {
         let handler = "";
-        
+
         const validate = () => {
-            console.log(handler);
-            handler = "";
+            if (window.currentEditor) {
+                // const tokenizer = Token.getInst()
+                // const tokens = tokenizer.tokenize(window.currentEditor.getValue());
+                const parse_tree = Jsep.parse(window.currentEditor.getValue());
+                console.log(parse_tree);
+            }
         }
 
         var handle = null;
@@ -299,14 +304,15 @@ const getCurrentRange = () => {
 }
 
 export const insertItemValue = (item) => {
-    
+
 
     window.currentEditor.trigger('keyboard', 'type', { text: `${item.name}`, range: getCurrentRange() });
     window.currentEditor.trigger('keyboard', 'editor.action.triggerSuggest', {});
     setTimeout(() => {
         window.currentEditor.trigger('editor', 'acceptSelectedSuggestion', {});
         window.currentEditor.trigger('keyboard', 'editor.action.triggerParameterHints', {});
-    }, 100);}
+    }, 100);
+}
 
 export const insertTextValue = (value) => {
     window.currentEditor.executeEdits('', [
