@@ -112,7 +112,30 @@ const providerCodeActions = (monaco) => {
     monaco.languages.registerCodeActionProvider(nameEditor, {
         provideCodeActions: (model, range, context, token) => {
             let actions = [];
-            //console.log("actions", actions);
+
+             actions = context.markers.map(error => {
+                 console.log(error)
+            //     return {
+            //         title: `Example quick fix`,
+            //         diagnostics: [error],
+            //         kind: "quickfix",
+            //         edit: {
+            //             edits: [
+            //                 {
+            //                     resource: model.uri,
+            //                     edits: [
+            //                         {
+            //                             range: error,
+            //                             text: "This text replaces the text with the error"
+            //                         }
+            //                     ]
+            //                 }
+            //             ]
+            //         },
+            //         isPreferred: true
+            //     };
+             });
+
             return {
                 actions: actions,
                 dispose: () => { }
@@ -187,7 +210,7 @@ const providerValidation = (monaco) => {
         model.onDidChangeContent((e) => {
             handler += e.changes[0].text;
             clearTimeout(handle);
-            handle = setTimeout(() => validate(), 500);
+            handle = setTimeout(() => validate(), 2000);
         });
         validate();
     });
