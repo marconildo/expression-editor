@@ -110,3 +110,22 @@
   color: lightgray;
   height: 25vh;
 }
+
+.statusBar {
+  white-space: nowrap;
+  padding-left: 8px;
+  padding-right: 8px;
+  flex: 0 1 auto;
+  font-size: smaller;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  border-left: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+  border-right: solid 1px darkgray;
+  background-color: rgba(100, 100, 100, 0.1);
+}
+
+.text-right {
+  text-align: right !important;
+}

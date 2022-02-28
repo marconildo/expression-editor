@@ -111,6 +111,13 @@ const ExpressionEditor = ({ externalParams }) => {
                     <Col span={24}>
                         <div className="whiteBox shadow">
                             <div id="expression-editor" />
+                            <div className='statusBar'>
+                                <div style={{ width: "75%" }}></div>
+                                <div className='text-right' style={{ width: "25%" }}>
+                                    <label>Ln 1, Col 45</label>
+                                </div>
+                                <div style={{ width: "10px" }}></div>
+                            </div>
                         </div>
                     </Col>
                 </Row>

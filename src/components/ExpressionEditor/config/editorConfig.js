@@ -34,6 +34,10 @@ export const initEditor = (divEditor, externalParamsSource) => {
 
             window.currentEditor = monaco.editor.create(wrapper, properties);
             window.currentEditor.focus();
+
+            window.currentEditor.onDidChangeModelContent((e) => {
+                console.log(e.changes[0].range)
+            });
         }
     });
 }
@@ -207,7 +211,7 @@ const providerValidation = (monaco) => {
         }
 
         var handle = null;
-        model.onDidChangeContent((e) => {
+        model.onDidChangeContent((e) => {            
             handler += e.changes[0].text;
             clearTimeout(handle);
             handle = setTimeout(() => validate(), 2000);
@@ -215,6 +219,7 @@ const providerValidation = (monaco) => {
         validate();
     });
 }
+
 
 const providerSignatureHelp = (monaco) => {
     monaco.languages.registerSignatureHelpProvider(nameEditor, {
