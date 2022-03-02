@@ -117,13 +117,13 @@
   padding-right: 8px;
   flex: 0 1 auto;
   font-size: smaller;
-  height: 20px;
+  height: 21px;
   display: flex;
   align-items: center;
   border-left: solid 1px darkgray;
   border-bottom: solid 1px darkgray;
   border-right: solid 1px darkgray;
-  background-color: rgba(100, 100, 100, 0.1);
+  background-color: rgba(150, 150, 150, 0.06)
 }
 
 .text-right {

@@ -114,7 +114,7 @@ const ExpressionEditor = ({ externalParams }) => {
                             <div className='statusBar'>
                                 <div style={{ width: "75%" }}></div>
                                 <div className='text-right' style={{ width: "25%" }}>
-                                    <label>Ln 1, Col 45</label>
+                                    <label>Ln 1, Col 1</label>
                                 </div>
                                 <div style={{ width: "10px" }}></div>
                             </div>
